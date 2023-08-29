@@ -1,0 +1,18 @@
+<div class="container-fluid imagem-background p-0">
+
+</div>
+
+<div class="container-xl">
+    <div class="menu w-100">
+        <div class="links ">
+            <a [routerLink]="['/']" routerLinkActive="router-link-active">Início</a>
+            <a [routerLink]="['/eventos']" routerLinkActive="router-link-active">Eventos</a>
+            <a [routerLink]="['/calendario']" routerLinkActive="router-link-active">Calendário</a>
+        </div>
+        <div class="pesquisa">
+            <input type="text" class="form-control" placeholder="Pesquisa">
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,58 @@
+.imagem-background {
+  position: relative;
+  background-image: url(https://www.komar.de/media/catalog/product/cache/5/image/9df78eab33525d08d6e5fb8d27136e95/8/-/8-4032_2_1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  background-position: center center;
+
+  div {
+      margin-left: 120px;
+      background: #ffffff94;
+      padding: 20px;
+      max-width: 290px;
+
+      h1 {
+          font-weight: bold;
+          color: #db001e;
+          font-size: 50px;
+      }
+
+      p {
+          color: black;
+      }
+  }
+}
+
+.menu {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  border-bottom: 4px solid #666;
+  margin-bottom: 30px;
+  z-index: 10;
+  background-color: white;
+
+  .links {
+      a {
+          text-decoration: none;
+          font-weight: 400;
+          color: #666;
+          margin-right: 10px;
+
+          &.router-link-active {
+              font-weight: bold;
+          }
+      }
+  }
+}
+
+.personagens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
