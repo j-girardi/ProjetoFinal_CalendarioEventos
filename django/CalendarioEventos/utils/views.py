@@ -12,7 +12,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
     password_1 = serializers.Charfield(write_only=True, required=True, validators=[validate_password])
-    password_1 = serializers.Charfield(write_only=True, required=True)
+    password_2 = serializers.Charfield(write_only=True, required=True)
 
     class Meta:
         model = User
@@ -23,7 +23,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        if attrs['password_1'] != attrs['passwords_2']:
+        if attrs['password_1'] != attrs['password_2']:
             raise serializers.ValidationError('As senhas devem ser iguais.')
         return attrs
 

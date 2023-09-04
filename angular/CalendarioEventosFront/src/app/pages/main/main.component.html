@@ -1,3 +1,4 @@
+
 <div class="eventos">
-    <app-event-card></app-event-card>
+    <app-event-card *ngFor="let evento of (eventos$ | async)" [evento]="evento"></app-event-card>
 </div>

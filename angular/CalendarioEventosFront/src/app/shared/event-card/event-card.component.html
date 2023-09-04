@@ -1,1 +1,9 @@
-<p>event-card works!</p>
+<figure class="evento">
+  <img [src]="evento.thumbnail.path + '.' + evento.thumbnail.extension" class='image-fluid' alt="sample67"/>
+    <figcaption>
+      <div class="icons">
+        <a href="#"><i class="ion-social-reddit-outline"></i></a><a href="#"> <i class="ion-social-twitter-outline"></i></a><a href="#"> <i class="ion-social-instagram-outline"></i></a>
+      </div>
+    </figcaption>
+</figure>
+<h3 class="evento">{{evento.name}}</h3>

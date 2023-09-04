@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Usuario(models.Model):
+    nome = models.CharField(max_length=255)
+    cpf = models.CharField(max_length=14)
+    data_nascimento = models.DateField()
+    email = models.EmailField(null=True, blank=True)
+

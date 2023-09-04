@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "drf_yasg",
+    "drf_yasg", #swagger
     "rest_framework_simplejwt",
     "rest_framework.authtoken",
     "dj_rest_auth",
@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': config('DATABASE_NAME'),
         'USER': config('DATABASE_USER'),
         'PASSWORD': config('DATABASE_PASSWORD'),
-        'HOST': config('DATABASE_HOST'),
+        'HOST': config('DATABASE_HOST', default='127.0.0.1'),
         'PORT': config('DATABASE_PORT', default='5432'),
     }
 }
@@ -144,14 +144,14 @@ STATIC_ROOT = 'staticfiles'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ]
+# }
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
