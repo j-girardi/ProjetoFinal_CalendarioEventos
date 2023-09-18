@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventCardComponent } from './event-card/event-card.component';
+import { AppComponent } from '../app.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -9,10 +11,14 @@ import { EventCardComponent } from './event-card/event-card.component';
     EventCardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
   ],
   exports: [
     EventCardComponent
+  ],
+  bootstrap: [
+    AppComponent
   ]
 })
 export class SharedModule { }

@@ -19,7 +19,7 @@ class Evento(models.Model):
     tipos_evento = models.ManyToManyField(TipoEvento, null=False)
     valor_entrada = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     descricao = models.TextField()
-    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True)
+    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True, default='https://shorturl.at/iuTY8')
     data_adicao = models.DateTimeField(auto_now_add=True) 
     
     def __str__(self) -> str:

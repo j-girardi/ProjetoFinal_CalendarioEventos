@@ -1,4 +1,24 @@
+<div class="container-xl">
+    <div class="menu w-100">
+        <div class="links ">
+            <a [routerLink]="['/']" routerLinkActive="router-link-active">Início</a>
+            <input type="text"
+                placeholder="Selecionar data"
+                class="form-control"
+                bsDaterangepicker
+                [bsConfig]="{
+                    isAnimated: true, 
+                    containerClass: 'theme-orange',
+                    dateInputFormat: 'YYYY-MM-DD'}"
+                [formControl]="filtroData">
+
+        </div>
+        <div class="pesquisa">
+            <input type="text" [formControl]="search" placeholder="Pesquisa">
+        </div>
+    </div>
+</div>
 
 <div class="eventos">
-    <app-event-card *ngFor="let evento of (eventos$ | async)" [evento]="evento"></app-event-card>
+    <app-event-card *ngFor="let evento of (eventos | async)" [evento]="evento"></app-event-card>
 </div>

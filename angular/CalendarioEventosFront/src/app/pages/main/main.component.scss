@@ -1,8 +1,33 @@
 .eventos {
     display: flex;
     justify-content: space-between;
-    max-height: 300px;
-    max-width: 1500px;
+    // max-height: 300px;
+    // max-width: 1500px;
     background-color: white;
-    overflow: hidden;
+    // overflow: hidden;
+}
+
+
+.menu {
+    z-index: 1000;
+    background: #f0f0f063;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #343434;
+    
+
+    .links {
+        a {
+            text-decoration: none;
+            font-weight: 400;
+            color: #000000;
+            margin-right: 10px;
+
+            &.router-link-active {
+                font-weight: bold;
+            }
+        }
+    }
 }

@@ -1,9 +1,18 @@
-<figure class="evento">
-  <img [src]="evento.thumbnail.path + '.' + evento.thumbnail.extension" class='image-fluid' alt="sample67"/>
-    <figcaption>
-      <div class="icons">
-        <a href="#"><i class="ion-social-reddit-outline"></i></a><a href="#"> <i class="ion-social-twitter-outline"></i></a><a href="#"> <i class="ion-social-instagram-outline"></i></a>
-      </div>
-    </figcaption>
+<a [routerLink]="['/eventos/', evento.id]">
+<figure class="snip1208">
+  <img *ngIf="evento.banner" [src]="evento.banner">
+  <img *ngIf="evento.banner == null" src="https://st4.depositphotos.com/14953852/22772/v/450/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg">
+
+  <div class="date">
+    <span class="day">{{eventoDay}}</span>
+    <span class="month">{{monthName}}</span>
+  </div><i class="ion-android-add"></i>
+  <figcaption>
+    <h3>{{evento.nome}}</h3>
+    <p>
+      {{evento.descricao}}
+    </p>
+    <button>Detalhes</button>
+  </figcaption><a href="#"></a>
 </figure>
-<h3 class="evento">{{evento.name}}</h3>
+</a>
