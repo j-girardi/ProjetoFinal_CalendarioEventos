@@ -1,24 +1,20 @@
-.eventos {
-    display: flex;
-    justify-content: space-between;
-    // max-height: 300px;
-    // max-width: 1500px;
-    background-color: white;
-    // overflow: hidden;
-}
-
 
 .menu {
     z-index: 1000;
-    background: #f0f0f063;
-    padding: 5px 10px;
+    background: #fffffffd;
+    padding: 5px 100px;
+    height: 100px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid #343434;
-    
+    border-bottom: 1px solid #535353;
 
     .links {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
         a {
             text-decoration: none;
             font-weight: 400;
@@ -31,3 +27,19 @@
         }
     }
 }
+.links *, .pesquisa {
+    padding: 10px;
+    margin: 30px;
+}
+
+.container-eventos {
+    display: flex;
+    justify-content: space-between;
+    min-width: 330px;
+    min-height: 450px;
+    max-width: 2000px;
+    margin: 0;
+    padding: 100px;
+    background-color: white;
+}
+

@@ -28,7 +28,6 @@ export class EventosApiService {
   getEvento(id: number): Observable<Evento> {
     return this.httpClient.get<Evento>(`${this.url}/eventos/eventos/${id}`)
   }
-
   
 }
 

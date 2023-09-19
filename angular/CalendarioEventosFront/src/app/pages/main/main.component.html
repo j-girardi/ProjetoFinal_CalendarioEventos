@@ -1,7 +1,8 @@
-<div class="container-xl">
-    <div class="menu w-100">
+<!-- <div class="container-xl"> -->
+    <div class="menu w-100 fs-4">
         <div class="links ">
             <a [routerLink]="['/']" routerLinkActive="router-link-active">Início</a>
+            <a [routerLink]="['/eventos']" routerLinkActive="router-link-active">Eventos</a>
             <input type="text"
                 placeholder="Selecionar data"
                 class="form-control"
@@ -17,8 +18,8 @@
             <input type="text" [formControl]="search" placeholder="Pesquisa">
         </div>
     </div>
-</div>
-
-<div class="eventos">
-    <app-event-card *ngFor="let evento of (eventos | async)" [evento]="evento"></app-event-card>
+<!-- </div> -->
+    
+<div class="container-md row container-eventos w-75">
+    <app-event-card class="col" *ngFor="let evento of (eventos | async)" [evento]="evento"></app-event-card>
 </div>

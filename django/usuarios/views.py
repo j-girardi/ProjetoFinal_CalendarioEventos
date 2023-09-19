@@ -7,8 +7,7 @@ from usuarios.models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        # fields = ('nome', 'cpf', 'data_nascimento', 'email')
-        fields = '__all__'
+        fields = ('nome', 'email')
 
 class UsuarioView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()

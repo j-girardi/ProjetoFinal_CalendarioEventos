@@ -1,5 +1,5 @@
 from django.db import models
-
+from usuarios.models import Usuario
 
 class TipoEvento(models.Model):
     nome = models.CharField(max_length=100)
@@ -16,11 +16,12 @@ class Evento(models.Model):
     bairro = models.CharField(max_length=255, null=True)
     cidade = models.CharField(max_length=255, default='Pato Branco')
     publico_alvo = models.CharField(max_length=255, default="Todos os publicos")
-    tipos_evento = models.ManyToManyField(TipoEvento, null=False)
-    valor_entrada = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    descricao = models.TextField()
-    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True, default='https://shorturl.at/iuTY8')
+    tipos_evento = models.ManyToManyField(TipoEvento)
+    valor_entrada = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
+    descricao = models.TextField(default='', null=True, blank=True)
+    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True, default='images/eventos/default_image.jpg')
     data_adicao = models.DateTimeField(auto_now_add=True) 
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='eventos', null=True, blank=True)
     
     def __str__(self) -> str:
         return self.nome

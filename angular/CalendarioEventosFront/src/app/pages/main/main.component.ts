@@ -58,18 +58,12 @@ export class MainComponent implements OnInit{
 
   filtrarData(data: string) {
     // console.log(new Date(data));
-    const dataEvento = new Date(data+'T00:00:00')
-    console.log(dataEvento);
     if(this.filtroData.value == null || this.filtroData.value == undefined){
-      console.log(this.filtroData.value, 'filtrodata vazio')
       return true
     }
+    const dataEvento = new Date(data+'T00:00:00')
     const filtro0 = new Date(this.filtroData.value[0].getFullYear(), this.filtroData.value[0].getMonth(), this.filtroData.value[0].getDate())
     const filtro1 = new Date(this.filtroData.value[1].getFullYear(), this.filtroData.value[1].getMonth(), this.filtroData.value[1].getDate()+1)
-    console.log('filtro0', filtro0);
-    console.log('filtro1', filtro1);
-    console.log(data)
-    return dataEvento >= filtro0 && dataEvento <= filtro1 
-    
+    return dataEvento >= filtro0 && dataEvento <= filtro1
   }
 }

@@ -1,18 +1,19 @@
-<a [routerLink]="['/eventos/', evento.id]">
-<figure class="snip1208">
-  <img *ngIf="evento.banner" [src]="evento.banner">
-  <img *ngIf="evento.banner == null" src="https://st4.depositphotos.com/14953852/22772/v/450/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg">
-
-  <div class="date">
-    <span class="day">{{eventoDay}}</span>
-    <span class="month">{{monthName}}</span>
-  </div><i class="ion-android-add"></i>
-  <figcaption>
-    <h3>{{evento.nome}}</h3>
-    <p>
-      {{evento.descricao}}
-    </p>
-    <button>Detalhes</button>
-  </figcaption><a href="#"></a>
-</figure>
-</a>
+<!-- <div class="card"> -->
+  <a [routerLink]="['/eventos/', evento.id]" class="card">
+    <figure class="snip1208 card-img-top">
+      <img *ngIf="evento.banner != null" [src]="evento.banner" class="card-img-top">
+      <!-- <img *ngIf="evento.banner == null" src="https://shorturl.at/lDGRY" class="card-img-top"> -->
+      <div class="date">
+        <span class="day">{{eventoDay}}</span>
+        <span class="month">{{monthName}}</span>
+      </div><i class="ion-android-add"></i>
+    </figure>
+    <figure class="snip1208 ">
+      <!-- <figcaption > -->
+        <h3 class="card-title">{{evento.nome}}</h3>
+        <p class="card-text">{{evento.descricao}}</p>
+        <button class="btn btn-primary bottom-0">Detalhes</button>
+      <!-- </figcaption> -->
+    </figure> 
+  </a>
+<!-- </div> -->

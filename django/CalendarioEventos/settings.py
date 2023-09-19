@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 from decouple import config
 import os
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg", #swagger
-    "rest_framework_simplejwt",
+    "rest_framework_simplejwt", #autenticacao
     "rest_framework.authtoken",
     "dj_rest_auth",
     "allauth",
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'django_filters',
     "eventos",
     "usuarios",
+
 ]
 
 MIDDLEWARE = [
@@ -146,12 +148,12 @@ STATIC_ROOT = 'staticfiles'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#     ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 
 SWAGGER_SETTINGS = {
@@ -170,18 +172,19 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_HTTPONLY': False,
 }
+ACCESS_TOKEN_LIFETIME = config('ACCESS_TOKEN_LIFETIME', default=50, cast=int)
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=ACCESS_TOKEN_LIFETIME),
+}
+
+CORS_ALLOW_ALL_HEADERS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # recuperaçao de senha
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-CORS_ALLOW_ALL_HEADERS = True
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_METHODS = [
-#     'GET',
-#     'POST',
-#     'PUT',
-#     'DELETE',
-#     'OPTIONS',
-# ]
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-# URL_FRONTEND = config('URL_FRONTEND', default='http://localhost:4200')
+
+

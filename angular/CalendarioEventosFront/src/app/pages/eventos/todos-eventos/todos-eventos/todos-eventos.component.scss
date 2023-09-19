@@ -1,0 +1,45 @@
+
+.menu {
+    z-index: 1000;
+    background: #fffffffd;
+    padding: 5px 100px;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #535353;
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        a {
+            text-decoration: none;
+            font-weight: 400;
+            color: #000000;
+            margin-right: 10px;
+
+            &.router-link-active {
+                font-weight: bold;
+            }
+        }
+    }
+}
+.links *, .pesquisa {
+    padding: 10px;
+    margin: 30px;
+}
+
+.container-eventos {
+    display: flex;
+    justify-content: space-around;
+    min-width: 330px;
+    min-height: 450px;
+    max-width: 2000px;
+    margin: 0;
+    padding: 100px;
+    background-color: white;
+}
+

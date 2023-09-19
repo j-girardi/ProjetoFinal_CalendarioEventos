@@ -42,8 +42,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('eventos.urls')),
     path('', include('usuarios.urls')),
-    # path('', include('usuarios.urls')),
-    # path('api/swagger.<slug:format>)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/swagger.<slug:format>)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('accounts/', include('dj_rest_auth.urls')),
     path('api/accounts/password/reset/confirm/<str:uidb64>/<str:token>',
@@ -52,9 +51,6 @@ urlpatterns = [
          ),
     path('accounts/registration/', include('dj_rest_auth.registration.urls')),
 
-    # paths para autenticação usando o token JWT
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 if settings.DEBUG:
