@@ -19,7 +19,7 @@ class Evento(models.Model):
     tipos_evento = models.ManyToManyField(TipoEvento)
     valor_entrada = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     descricao = models.TextField(default='', null=True, blank=True)
-    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True, default='images/eventos/default_image.jpg')
+    banner = models.ImageField(upload_to='images/eventos', blank=True, null=True)
     data_adicao = models.DateTimeField(auto_now_add=True) 
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='eventos', null=True, blank=True)
     

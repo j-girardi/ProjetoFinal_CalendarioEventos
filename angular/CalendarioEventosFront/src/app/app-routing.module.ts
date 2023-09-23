@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'eventos',
     loadChildren: () => import('src/app/pages/eventos/eventos.module').then(m => m.EventosModule)
-  }
+  },
+  {
+    path: 'usuario',
+    loadChildren: () => import('src/app/pages/usuario/usuario.module').then(m => m.UsuarioModule)
+  },
 ];
 
 @NgModule({

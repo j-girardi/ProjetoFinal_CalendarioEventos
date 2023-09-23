@@ -13,4 +13,5 @@ export class Evento {
     descricao!: string;
     banner!: number;
     data_adicao!: string;
+    usuario!: string;
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario/usuario';
-import { EventosApiService } from 'src/app/services/eventos-api/eventos-api.service';
+import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
 
 @Component({
   selector: 'app-detalhe-evento',
@@ -14,7 +14,7 @@ export class DetalheEventoComponent implements OnInit{
   
   constructor(
     private route: ActivatedRoute,
-    private requestService: EventosApiService,
+    private requestService: RequestsApiService,
     // public bsModalRef: BsModalRef,
     // private modalService: BsModalService
   ) {}

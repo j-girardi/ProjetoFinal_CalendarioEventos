@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
-import { EventosApiService } from 'src/app/services/eventos-api/eventos-api.service';
+import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
 import { Evento } from 'src/app/models/evento/evento';
 
 
@@ -24,7 +24,7 @@ export class MainComponent implements OnInit{
   filtroData = new FormControl();
   
   constructor (
-    private eventosApiService: EventosApiService
+    private requestsApiService: RequestsApiService
   ) {}
 
 
@@ -46,7 +46,7 @@ export class MainComponent implements OnInit{
   }
 
   buscarEventos() {
-    this.eventos = this.eventosApiService.getEventos(this.httpParams)
+    this.eventos = this.requestsApiService.getEventos(this.httpParams)
     this.eventos = this.eventos.pipe(
       map(eventos => {
         return eventos.filter(evento => 

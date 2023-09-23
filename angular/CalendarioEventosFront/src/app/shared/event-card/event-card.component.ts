@@ -11,6 +11,7 @@ import { Evento } from 'src/app/models/evento/evento';
 
 export class EventCardComponent implements OnInit{
   @Input() evento!: Evento;
+  
   monthName: string = '';
   eventoDay: string = '';
   constructor(private router: Router) {}

@@ -21,6 +21,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     SharedModule,
     BsDatepickerModule.forRoot(),
     FormsModule
+    
   ]
 })
 export class MainModule { }

@@ -28,7 +28,7 @@ from rest_framework_simplejwt import views as jwt_views
 schema_view = get_schema_view(
     openapi.Info(
         title='Calendario De Eventos API',
-        description="Servidor para o projeto Calendário de Eventos",
+        description="Backend para o projeto Calendário de Eventos",
         default_version='v1',
         contact=openapi.Contact(email='admin@admin.com'),
         

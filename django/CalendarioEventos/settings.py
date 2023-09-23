@@ -15,6 +15,7 @@ from pathlib import Path
 from decouple import config
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/images/'
@@ -24,7 +25,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-nuzoiurczj0ww4clj%)u6@hacws7#e#qkr3!z^$*0msy7a$^@o"
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in productio n!
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_filters',
     "eventos",
     "usuarios",
+    
 
 ]
 
@@ -127,9 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "PT-BR"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
@@ -151,9 +152,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'CalendarioEventos.utils.permissions.CustomDjangoModelPermissions',
+    ]
 }
 
 SWAGGER_SETTINGS = {
@@ -165,6 +166,8 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 SITE_ID = 1
 
@@ -183,8 +186,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 # recuperaçao de senha
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587 
+# EMAIL_USE_TLS = True  
+# EMAIL_HOST_USER = 'patowaves@gmail.com'  
+# EMAIL_HOST_PASSWORD = 'aqoimpxvvhfatced' 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-
-
+# ACCOUNT_ADAPTER = 'usuarios.adapter.CustomAccountAdapter'
+URL_FRONTEND = config('URL_FRONTEND', default='http://localhost:4200')

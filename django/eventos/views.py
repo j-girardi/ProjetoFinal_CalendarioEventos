@@ -21,7 +21,7 @@ class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = ('id', 'nome', 'data', 'cep', 'rua', 'numero', 'bairro',
-                    'cidade', 'tipos_evento', 'publico_alvo', 'valor_entrada', 
+                    'cidade', 'display_tipos_evento', 'publico_alvo', 'valor_entrada', 
                     'descricao', 'banner', 'data_adicao')
 
 
@@ -41,3 +41,5 @@ class TipoEventoView(viewsets.ModelViewSet):
     queryset = TipoEvento.objects.all()
     serializer_class = TipoEventoSerializer
     http_method_names = ['get', 'post', 'put', 'delete']
+
+    

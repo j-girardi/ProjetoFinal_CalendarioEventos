@@ -10,10 +10,10 @@ import { Evento } from './models/evento/evento';
 })
 export class AppComponent implements OnInit{
   title = 'CalendarioEventosFront';
-  httpParams: any;
-  eventos$!: Observable<Evento[]>;
-  search = new FormControl()
-  eventosApiService: any;
+  // httpParams: any;
+  // eventos$!: Observable<Evento[]>;
+  // search = new FormControl()
+  // eventosApiService: any;
 
   ngOnInit() {
     // this.search.valueChanges.pipe(
@@ -26,14 +26,14 @@ export class AppComponent implements OnInit{
     // this.buscarEventos()
   }
 
-  buscarEventos() {
-    this.eventos$ = this.eventosApiService.getEventos(this.httpParams)
-    this.eventos$.subscribe(
-        eventos => {
-          eventos.forEach(evento => {
-            console.log(evento)
-          })
-        }
-      )
-  }
+  // buscarEventos() {
+  //   this.eventos$ = this.eventosApiService.getEventos(this.httpParams)
+  //   this.eventos$.subscribe(
+  //       eventos => {
+  //         eventos.forEach(evento => {
+  //           console.log(evento)
+  //         })
+  //       }
+  //     )
+  // }
 }

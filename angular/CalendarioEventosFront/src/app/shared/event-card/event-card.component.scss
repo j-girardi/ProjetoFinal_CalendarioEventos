@@ -27,6 +27,8 @@ figure.snip1208 {
   color: #000000;
   text-align: left;
   font-size: 16px;
+  border-color: #333333;
+  border-width: 1px;
 }
 figure.snip1208 * {
   -webkit-box-sizing: border-box;
@@ -38,6 +40,8 @@ figure.snip1208 img {
   max-width: 100%;
   vertical-align: top;
   object-fit: fill;
+  border-color: #333333;
+  border-width: 1px;
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   -webkit-transition: all 0.4s ease;

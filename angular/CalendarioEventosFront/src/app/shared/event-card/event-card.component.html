@@ -1,7 +1,7 @@
 <!-- <div class="card"> -->
   <a [routerLink]="['/eventos/', evento.id]" class="card">
     <figure class="snip1208 card-img-top">
-      <img *ngIf="evento.banner != null" [src]="evento.banner" class="card-img-top">
+      <img *ngIf="evento.banner != null" [src]="evento.banner" class="card-img-top" alt="Foto do Evento">
       <!-- <img *ngIf="evento.banner == null" src="https://shorturl.at/lDGRY" class="card-img-top"> -->
       <div class="date">
         <span class="day">{{eventoDay}}</span>
