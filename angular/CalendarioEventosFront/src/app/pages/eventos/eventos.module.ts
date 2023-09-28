@@ -8,12 +8,16 @@ import { TodosEventosComponent } from './todos-eventos/todos-eventos/todos-event
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainModule } from '../main/main.module';
 
 
 @NgModule({
   declarations: [
     DetalheEventoComponent,
-    TodosEventosComponent
+    TodosEventosComponent,
   ],
   imports: [
     CommonModule,
@@ -22,8 +26,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     SharedModule,
     BsDatepickerModule.forRoot(),
-    FormsModule
-
+    FormsModule,
+    FontAwesomeModule,
+    MainModule
   ]
 })
 export class EventosModule { }

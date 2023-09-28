@@ -4,8 +4,13 @@ import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: MainComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 ];
 

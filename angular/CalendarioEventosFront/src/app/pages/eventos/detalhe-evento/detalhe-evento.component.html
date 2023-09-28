@@ -1,42 +1,38 @@
-<div class="container-xl">
-    <div class="menu w-100">
-        <div class="links ">
-            <a [routerLink]="['/']" routerLinkActive="router-link-active">Início</a>
-        </div>
-    </div>
-</div>
 
+<app-menu></app-menu>
 
 <div class="main-content " *ngIf="this.evento">
-    <div class="evento-titulo">
-      <h1>{{ evento.titulo }}</h1>
+    <div class="evento-titulo fs-6">
+      <h1 class="start-0">{{evento.data}}</h1>
+      <h1 class="start-50">{{ evento.nome }}</h1>
     </div>
-    <div class="event-info row">
+    <div class="event-info ">
       <div class="evento-foto col-lg-5">
         <img src={{evento.banner}} alt="Foto do Evento">
       </div>
   
-      <div class="info col-lg-7">
+      <div class="info col-lg-5 ">
         <!-- <p #tooltip="matTooltip" matTooltip="Clique para saber mais sobre o local do evento" matTooltipPosition="right">
           <span>Local:</span>{{evento.user.first_name}}<span>
             <button (click)="openModalWithComponent()" ><a class="fa-solid fa-user-tie user-ic"></a></button></span>
         </p> -->
         <p> <span>Rua:</span>{{evento.rua}}</p>
         <p> <span>Cidade:</span>{{evento.cidade}}</p>
+        <p> <span>Bairro:</span>{{evento.bairro}}</p>
         <p> <span>CEP:</span> {{evento.cep}}</p>
-        <p><a [href]="getGoogleMapsLink(evento.cep)" target="_blank">Localização maps</a></p>
+        <p><a [href]="getGoogleMapsLink(evento.cep.toString())" target="_blank">Localização maps</a></p>
+        <p> <span>Público Alvo:</span> {{evento.publico_alvo}}</p>
+        <div class="evento-tipo">
+          <h5>Tipo do Evento:</h5>
+          <p>{{evento.tipos_evento}}</p>
+        </div>
+        <div class="evento-description">
+          <h5>Descrição do Evento:</h5>
+          <p>{{evento.descricao}}</p>
+        </div>
+        <div class="evento-entry">
+          <h5>Valor de Entrada</h5><p>R$ {{evento.valor_entrada}}</p>
+        </div>
       </div>
     </div>
-  
-    <section class="event-description">
-      <h5>Descrição do evento</h5>
-      <p>
-        {{evento.descricao}}
-      </p>
-    </section>
-  
-    <section class="event-entry">
-      <h2>Valor de Entrada</h2>
-      <p>R$ {{evento.valor_entrada}}</p>
-    </section>
   </div>

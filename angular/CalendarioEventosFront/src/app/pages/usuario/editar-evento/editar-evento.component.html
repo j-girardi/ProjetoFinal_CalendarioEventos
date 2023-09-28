@@ -1,0 +1,236 @@
+<div class="container">
+    <form [formGroup]="FormEvento">
+        <div class="form-group">
+            <label>Nome do Evento</label>
+            <input id="nome" type="text" class="form-control" formControlName="nome" 
+            
+            [ngClass]="{
+                    'is-valid': FormEvento.get('nome')?.valid,
+                    'is-invalid': FormEvento.get('nome')?.invalid && (FormEvento.get('nome')?.touched || FormEvento.get('nome')?.dirty)
+                }">
+            <ul
+                *ngIf="FormEvento.get('nome')?.invalid && (FormEvento.get('nome')?.touched || FormEvento.get('nome')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label>Data do Evento</label>
+            <input type="date" formControlName="data" class="form-control" 
+                [ngClass]="{
+                    'is-valid': FormEvento.get('data')?.valid,
+                    'is-invalid': FormEvento.get('data')?.invalid && (FormEvento.get('data')?.touched || FormEvento.get('data')?.dirty)
+                }">
+            <ul
+                *ngIf="FormEvento.get('data')?.invalid && (FormEvento.get('data')?.touched || FormEvento.get('data')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group imagem">
+            <label>Foto do Evento</label>
+            <ngx-dropzone #dropzoneComponent (change)="onFileSelected($event)" *ngIf="!selectedImage">
+                <button mat-button>
+                    <mat-icon>cloud_upload</mat-icon> Arraste e solte ou clique para selecionar uma imagem
+                </button>
+            </ngx-dropzone>
+            <div class="image-preview" *ngIf="imagePreviewUrl">
+                <img [src]="imagePreviewUrl" alt="Foto do Evento" class="preview-image">
+                <button mat-icon-button class="remove-button" *ngIf="imagePreviewUrl" (click)="removeImage()"
+                    #tooltip="matTooltip" matTooltip="Trocar a foto" matTooltipPosition="above">
+                    x
+                </button>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Categorias do Evento</label>
+            <select name="tipos_evento" formControlName="tipos_evento" multiple>
+                <option *ngFor="let tipo of categorias" [ngValue]="tipo" [selected]="eventoContemTipoEvento(tipo)">
+                    {{tipo.nome}}</option>
+            </select>
+            <!-- <select name="tipos_evento" formControlName="tipos_evento" multiple>
+                <option *ngFor="let tipo of categorias" [ngValue]="tipo" [selected]="eventoContemTipoEvento(tipo)">
+                    {{tipo.nome}}</option>
+            </select> -->
+            <ul
+                *ngIf="FormEvento.get('tipos_evento')?.invalid && (FormEvento.get('tipos_evento')?.touched || FormEvento.get('tipos_evento')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        
+        <div class="form-group">
+            <label>Público Alvo</label>
+            <input type="text" formControlName="publico_alvo" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Descrição do Evento</label>
+            <textarea formControlName="descricao" class="form-control" [ngClass]="{
+                                                      'is-valid': FormEvento.get('descricao')?.valid,
+                                                      'is-invalid': FormEvento.get('descricao')?.invalid && (FormEvento.get('descricao')?.touched || FormEvento.get('descricao')?.dirty)
+                                                  }"></textarea>
+            <ul
+                *ngIf="FormEvento.get('descricao')?.invalid && (FormEvento.get('descricao')?.touched || FormEvento.get('descricao')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label>Valor da Entrada</label>
+            <input type="text" formControlName="valor_entrada" class="form-control" (input)="mascaraMoeda($event)"
+                [ngClass]="{
+                                                      'is-valid': FormEvento.get('valor_entrada')?.valid,
+                                                      'is-invalid': FormEvento.get('valor_entrada')?.invalid && (FormEvento.get('valor_entrada')?.touched || FormEvento.get('valor_entrada')?.dirty)
+                                                  }">
+            <ul
+                *ngIf="FormEvento.get('valor_entrada')?.invalid && (FormEvento.get('valor_entrada')?.touched || FormEvento.get('valor_entrada')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group ">
+            <label>CEP</label>
+            <input type="text" formControlName="cep" class="form-control" maxlength="8"
+                [ngClass]="{
+                    'is-valid': FormEvento.get('cep')?.valid,
+                    'is-invalid': FormEvento.get('cep')?.invalid && (FormEvento.get('cep')?.touched || FormEvento.get('cep')?.dirty)}">
+            <ul *ngIf="FormEvento.get('cep')?.invalid && (FormEvento.get('cep')?.touched || FormEvento.get('cep')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label>Rua</label>
+            <input type="text" formControlName="rua" class="form-control" 
+                [ngClass]="{
+                    'is-valid': FormEvento.get('rua')?.valid,
+                    'is-invalid': FormEvento.get('rua')?.invalid && (FormEvento.get('rua')?.touched || FormEvento.get('rua')?.dirty)
+                }">
+            <ul *ngIf="FormEvento.get('rua')?.invalid && (FormEvento.get('rua')?.touched || FormEvento.get('rua')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label>Bairro</label>
+            <input type="text" formControlName="bairro" class="form-control" 
+                [ngClass]="{
+                    'is-valid': FormEvento.get('bairro')?.valid,
+                    'is-invalid': FormEvento.get('bairro')?.invalid && (FormEvento.get('bairro')?.touched || FormEvento.get('bairro')?.dirty)
+                }">
+            <ul *ngIf="FormEvento.get('bairro')?.invalid && (FormEvento.get('bairro')?.touched || FormEvento.get('bairro')?.dirty)">
+                <li style="color: red;">Campo obrigatório</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label>Número</label>
+            <input type="text" formControlName="numero" class="form-control" [ngClass]="{
+                                                        'is-valid': FormEvento.get('numero')?.valid,
+                                                        'is-invalid': FormEvento.get('numero')?.invalid && (FormEvento.get('numero')?.touched || FormEvento.get('numero')?.dirty)
+                                                }">
+        </div>
+        <div class="form-group">
+            <label>Cidade</label>
+            <input type="text" formControlName="cidade" class="form-control" [ngClass]="{
+                                                        'is-valid': FormEvento.get('cidade')?.valid,
+                                                        'is-invalid': FormEvento.get('cidade')?.invalid && (FormEvento.get('cidade')?.touched || FormEvento.get('cidade')?.dirty)
+                                                }">
+        </div>
+        <div class="d-flex justify-content-between">
+            <button class="create-button" (click)="editarEvento()">Editar o Evento</button>
+        </div>
+
+    </form>
+
+
+
+    <!-- </mat-step> -->
+
+    <!-- Segundo passo -->
+    <!-- <mat-step> -->
+    <!-- <form [formGroup]="FormStep2">
+                <div class="form-group">
+                    <label>Categoria do Evento</label>
+                    <select name="tipos_evento" formControlName="tipos_evento" multiple>
+                        <option *ngFor="let tipo of categorias" [ngValue]="tipo">{{tipo.nome}}</option>
+                    </select>
+                    <ul
+                        *ngIf="FormStep2.get('tipos_evento')?.invalid && (FormStep2.get('tipos_evento')?.touched || FormStep2.get('tipos_evento')?.dirty)">
+                        <li style="color: red;">Campo obrigatório</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label>Público Alvo</label>
+                    <input type="text" formControlName="publico_alvo" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Descrição do Evento</label>
+                    <textarea formControlName="descricao" class="form-control" [ngClass]="{
+                                                      'is-valid': FormStep2.get('descricao')?.valid,
+                                                      'is-invalid': FormStep2.get('descricao')?.invalid && (FormStep2.get('descricao')?.touched || FormStep2.get('descricao')?.dirty)
+                                                  }"></textarea>
+                    <ul
+                        *ngIf="FormStep2.get('descricao')?.invalid && (FormStep2.get('descricao')?.touched || FormStep2.get('descricao')?.dirty)">
+                        <li style="color: red;">Campo obrigatório</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label>Valor da Entrada</label>
+                    <input type="text" formControlName="valor_entrada" class="form-control" [ngClass]="{
+                              'is-valid': FormStep2.get('valor_entrada')?.valid,
+                              'is-invalid': FormStep2.get('valor_entrada')?.invalid && (FormStep2.get('valor_entrada')?.touched || FormStep2.get('valor_entrada')?.dirty)
+                          }">
+                    <ul
+                        *ngIf="FormStep2.get('valor_entrada')?.invalid && (FormStep2.get('valor_entrada')?.touched || FormStep2.get('valor_entrada')?.dirty)">
+                        <li style="color: red;">Campo obrigatório</li>
+                    </ul>
+                </div>
+                <div class="form-group ">
+                    <label>CEP</label>
+                    <input type="text" formControlName="cep" class="form-control"
+                        [ngClass]="{
+                        'is-valid': FormStep2.get('cep')?.valid,
+                        'is-invalid': FormStep2.get('cep')?.invalid && (FormStep2.get('cep')?.touched || FormStep2.get('cep')?.dirty)}">
+                    <ul
+                        *ngIf="FormStep2.get('cep')?.invalid && (FormStep2.get('cep')?.touched || FormStep2.get('cep')?.dirty)">
+                        <li style="color: red;">Campo obrigatório</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label>Rua</label>
+                    <input type="text" formControlName="rua" class="form-control" [ngClass]="{
+              'is-valid': FormStep2.get('rua')?.valid,
+              'is-invalid': FormStep2.get('rua')?.invalid && (FormStep2.get('rua')?.touched || FormStep2.get('rua')?.dirty)
+          }">
+                    <ul
+                        *ngIf="FormStep2.get('rua')?.invalid && (FormStep2.get('rua')?.touched || FormStep2.get('rua')?.dirty)">
+                        <li style="color: red;">Campo obrigatório</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label>Número</label>
+                    <input type="text" formControlName="numero" class="form-control" [ngClass]="{
+                        'is-valid': FormStep2.get('numero')?.valid,
+                        'is-invalid': FormStep2.get('numero')?.invalid && (FormStep2.get('numero')?.touched || FormStep2.get('numero')?.dirty)
+                    }">
+                </div>
+                <div class="form-group">
+                    <label>Bairro</label>
+                    <input type="text" formControlName="bairro" class="form-control" [ngClass]="{
+                        'is-valid': FormStep2.get('bairro')?.valid,
+                        'is-invalid': FormStep2.get('bairro')?.invalid && (FormStep2.get('bairro')?.touched || FormStep2.get('bairro')?.dirty)
+                    }">
+                </div>
+                <div class="form-group">
+                    <label>Cidade</label>
+                    <input type="text" formControlName="cidade" class="form-control" [ngClass]="{
+                        'is-valid': FormStep2.get('cidade')?.valid,
+                        'is-invalid': FormStep2.get('cidade')?.invalid && (FormStep2.get('cidade')?.touched || FormStep2.get('cidade')?.dirty)
+                    }">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button mat-raised-button color="primary" matStepperPrevious>Voltar</button> -->
+    <!-- <button mat-raised-button class="create-button" (click)="criarEvento()">Criar Evento</button>
+                    <button mat-raised-button class="create-button" (click)="consoleLog()">ConsoleLog</button> -->
+
+    <!-- </div>
+            </form> -->
+    <!-- </mat-step>
+    </mat-horizontal-stepper> -->
+</div>

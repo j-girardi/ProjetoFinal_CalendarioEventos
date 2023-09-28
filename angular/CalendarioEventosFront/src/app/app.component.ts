@@ -9,7 +9,7 @@ import { Evento } from './models/evento/evento';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'CalendarioEventosFront';
+  title = 'Agenda PB';
   // httpParams: any;
   // eventos$!: Observable<Evento[]>;
   // search = new FormControl()

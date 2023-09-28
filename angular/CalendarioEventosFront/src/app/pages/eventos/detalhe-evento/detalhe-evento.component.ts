@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Evento } from 'src/app/models/evento/evento';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
 
@@ -9,7 +10,7 @@ import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.se
   styleUrls: ['./detalhe-evento.component.scss']
 })
 export class DetalheEventoComponent implements OnInit{
-  evento: any;
+  evento!: Evento;
   usuario!: Usuario;
   
   constructor(
@@ -26,6 +27,7 @@ export class DetalheEventoComponent implements OnInit{
         .subscribe(response => {
           this.evento = response;
           console.log(this.evento);
+          console.log(this.evento.tipos_evento)
       }),
       (error: any) => {
         console.log('Error', error);

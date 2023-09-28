@@ -3,7 +3,6 @@
     box-sizing: border-box;
 }
 
-
 .body {
     min-height: 100vh;
     min-width: 100vw;
@@ -70,6 +69,8 @@
                 border: none;
                 background-color: transparent;
                 cursor: pointer;
+                height: 30px;
+                width: 30px;
 
                 i {
                     width: 100%;

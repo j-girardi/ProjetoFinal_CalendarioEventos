@@ -2,33 +2,42 @@
 @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
 .card {
-  width: 330px;
-  height: 450px;
+  width: 350px;
+  height: 310px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  align-items: center;
+  box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
+  margin: 5px;
 }
-a {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  opacity: 100%;
-}
+// a {
+//   width: 100%;
+//   height: 100%;
+//   max-width: 100%;
+//   max-height: 100%;
+//   opacity: 100%;
+// }
 
 figure.snip1208 {
   font-family: 'Raleway', Arial, sans-serif;
-  color: #fff;
+  color: #aa8737;
   position: relative;
   overflow: hidden;
   margin: 10px;
-  min-width: 220px;
-  max-width: 310px;
-  width: 100%;
-  height: 50%;
+  // width: 100%;
+  // min-width: 220px;
+  // max-width: 310px;
+  // width: 100%;
+  // height: 50%;
   background-color: #ffffff;
   color: #000000;
   text-align: left;
   font-size: 16px;
   border-color: #333333;
   border-width: 1px;
+  border-radius: 10px;
 }
 figure.snip1208 * {
   -webkit-box-sizing: border-box;
@@ -36,27 +45,45 @@ figure.snip1208 * {
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+.top-part{
+  height: 250px;
+  width: 100%;
+  margin-top: 0 !important;
+}
 figure.snip1208 img {
-  max-width: 100%;
-  vertical-align: top;
-  object-fit: fill;
-  border-color: #333333;
-  border-width: 1px;
-  -webkit-transform-origin: 50% 100%;
-  transform-origin: 50% 100%;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  object-fit: cover;
+  width: 100%;
+  min-height: 250px;
+  overflow: hidden;
+  // max-width: 100%;
+  // max-height: 400px;
+  // width: auto;
+  // height: 300px;
+  // vertical-align: top;
+  // object-fit: cover;
+  // border-color: #333333;
+  // border-width: 1px;
+  // -webkit-transform-origin: 50% 100%;
+  // transform-origin: 50% 100%;
+  // -webkit-transition: all 0.4s ease;
+  // transition: all 0.4s ease;
 }
-figure.snip1208 figcaption {
-  padding: 25px;
+.no-img{
   position: relative;
+  img{
+    position: absolute;
+    left: 30%;
+    transform: translateY(30%);
+  }
 }
+
 figure.snip1208 .date,
 figure.snip1208 i {
   background-color: #1abc9c;
-  top: 25px;
+  opacity: 0.9;
+  top: 10px;
   color: #fff;
-  left: 25px;
+  left: 10px;
   min-height: 60px;
   min-width: 60px;
   position: absolute;
@@ -85,42 +112,56 @@ figure.snip1208 i {
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
+
+
+.bot-part{
+  position: relative;
+  max-width: 100%;
+  white-space: nowrap;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
 figure.snip1208 h3,
 figure.snip1208 p {
   margin: 0;
   padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
 }
 figure.snip1208 h3 {
-  margin-bottom: 10px;
-  display: inline-block;
+  // margin-bottom: 10px;
+  // display: inline-block;
+  // position: absolute;
+  top: 0px;
+  left: 0px;
   font-weight: 600;
   color: #333333;
   text-transform: uppercase;
 }
-figure.snip1208 p {
-  font-size: 0.8em;
-  margin-bottom: 20px;
-  line-height: 1.6em;
-}
-figure.snip1208 button {
-  border: medium none;
-  padding: 10px 20px;
-  background-color: #1abc9c;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-size: 0.8em;
-  bottom: 0;
-}
-// figure.snip1208 a {
-//   left: 0;
-//   right: 0;
-//   top: 0;
-//   bottom: 0;
+
+// figure.snip1208 button {
 //   position: absolute;
-//   z-index: 1;
+  // top: 3px;
+  // // border: medium none;
+  // // padding: 10px 20px;
+  // background-color: #1abc9c;
+  // font-weight: 800;
+  // color: #ffffff;
+  // letter-spacing: 2px;
+  // text-transform: uppercase;
+  // font-size: 0.8em;
+  // bottom: 0;
 // }
+// // figure.snip1208 a {
+// //   left: 0;
+// //   right: 0;
+// //   top: 0;
+// //   bottom: 0;
+// //   position: absolute;
+// //   z-index: 1;
+// // }
 figure.snip1208:hover img,
 figure.snip1208.hover img {
   -webkit-transform: scale(1.1);
@@ -128,21 +169,23 @@ figure.snip1208.hover img {
 }
 figure.snip1208:hover .date,
 figure.snip1208.hover .date {
-  -webkit-transform: rotateY(90deg);
-  transform: rotateY(90deg);
+  opacity: 1;
+  // -webkit-transform: rotateY(360deg);
+  // transform: rotateY(360deg);
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
+  scale: 1.1;
 }
-figure.snip1208:hover i,
-figure.snip1208.hover i {
-  -webkit-transform: rotateY(0);
-  transform: rotateY(0);
-  -webkit-transition-delay: 0.2s;
-  transition-delay: 0.2s;
-}
-figure.snip1208:hover button,
-figure.snip1208.hover button {
-  background-color: #117964;
-}
+// figure.snip1208:hover i,
+// figure.snip1208.hover i {
+//   -webkit-transform: rotateY(0);
+//   transform: rotateY(0);
+//   -webkit-transition-delay: 0.2s;
+//   transition-delay: 0.2s;
+// }
+// figure.snip1208:hover button,
+// figure.snip1208.hover button {
+//   background-color: #117964;
+// }
 
 

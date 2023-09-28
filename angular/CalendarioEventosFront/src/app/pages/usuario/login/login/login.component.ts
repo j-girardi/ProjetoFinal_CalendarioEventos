@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,8 @@ import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.se
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  faCoffee = faCoffee;
+
   form!: FormGroup;
   fieldTextType: boolean = false;
 
@@ -55,7 +59,7 @@ export class LoginComponent {
           this.router.navigate(['usuario/perfil', response.user.pk])
         }
        else{
-            alert('Formulário inválido. Verifique se todos os campos estão preenchidos corretamente.');
+            alert('Login inválido. Verifique se todos os campos estão preenchidos corretamente.');
             this.form.markAllAsTouched()}
           })
   }

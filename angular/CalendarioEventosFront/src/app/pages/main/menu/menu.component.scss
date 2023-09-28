@@ -1,0 +1,298 @@
+header {
+    overflow: hidden;
+}
+header:hover {
+    cursor: pointer;
+}
+.bgimg {
+    background-position: center;
+    background-size: cover;
+    background-image: url("../../../../assets/images/pato_aerea.jpg");
+    background-position: 80%;
+    min-height: 60%;
+
+    .w3-tag {
+        font-size: medium;
+    }
+    span {
+        background-color: black;
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.7), 
+            rgba(0, 0, 0, 0.7));
+        border-radius: 10px ;
+        color: white;
+        
+    }
+}
+
+
+
+.head {
+    position: sticky;
+}
+.menu {
+    z-index: 1000;
+    background: #fffffffd;
+    padding: 10px 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #9E7D5D;
+    font-family: inherit;
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        a {
+            text-decoration: none;
+            font-weight: 400;
+            color: #555555;
+            margin-right: 30px;
+            margin-left: 30px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 1.34rem;
+
+            &.router-link-active {
+                font-weight: bold;
+                background-color: #FDCB58;
+            }
+            
+        }
+        a:hover {
+            cursor: pointer;
+        }
+    }
+
+    .pesquisa{
+        margin: 0;
+        input{
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--bs-body-color);
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--bs-body-bg);
+            background-clip: padding-box;
+            border: var(--bs-border-width) solid var(--bs-border-color);
+            border-radius: var(--bs-border-radius);
+            font-family: inherit;
+            border-color: #9E7D5D;  
+        }
+    }
+    
+    #input-me{
+        margin: 0px !important;
+        border: var(--bs-border-width) solid #9E7D5D;
+    }
+}
+.w3-button:hover {
+    background-color: #fdcb58af !important;
+    
+  }
+
+// .page-container {
+//     width: 100vw;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     height: 100vh;
+
+//     .background-firula {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         background: linear-gradient(19deg, var(#FDCB58), var(#67A0E7));
+//         transform-origin: 0px 0px;
+//         transform: skewY(-10deg);
+//         overflow: hidden;
+//         z-index: 0;
+//     }
+// }
+
+// .painel {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     position: relative;
+//     height: 80vh;
+//     min-height: 100px;
+//     width: 100%;
+//     background: transparent;
+
+
+
+//     .logo {
+//         display: flex;
+//         flex-direction: column;
+//         width: 500px;
+//         left: 30%;
+//         padding: 0;
+//         height: 60%;
+//         z-index: 2;
+//         justify-content: flex-end;
+//         align-items: center;
+
+//         img {
+//             width: 550px;
+//             height: 350px;
+//             object-fit: fill;
+//         }
+//     }
+
+//     .search-bar {
+//         border: none;
+//         outline: none;
+//         background: none;
+//         border-bottom: 1px solid black;
+//         min-width: 300px;
+//     }
+
+//     .btn-pesquisa {
+//         border: none;
+//         background: none;
+//         scale: 1.2;
+//     }
+
+
+//     .login-2 {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         justify-content: space-between;
+//         padding: 30px;
+//         width: 100%;
+//         height: 40%;
+
+//         .texto {
+//             font-family: 'Nova Mono', monospace;
+//             z-index: 2;
+//             color: white;
+//         }
+//     }
+// }
+
+// .menu-button {
+//     display: none;
+// }
+
+
+// .navegacao {
+//     width: 100%;
+//     min-height: 150px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+
+//     .rotas {
+//         height: 50%;
+//         width: 100%;
+//         display: flex;
+//         align-items: flex-end;
+//         justify-content: center;
+//         font-size: var(--font-titulo);
+//         gap: 10px;
+//         padding-bottom: 10px;
+
+//         .rota {
+//             color: black;
+//             display: flex;
+//             -webkit-transform: skew(-20deg);
+//             -moz-transform: skew(-20deg);
+//             -o-transform: skew(-20deg);
+//             align-items: center;
+//             justify-content: center;
+//             text-decoration: none;
+//             margin-left: 20px;
+//             font-family: 'Nova Mono', monospace;
+//             font-weight: 500;
+//             width: 250px;
+//             height: 50px;
+//             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+//             border: 2px solid #FFB7C5;
+//             transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, border 0.3s ease-in-out;
+//             cursor: pointer;
+
+//             &:hover {
+//                 background-color: #FFB7C5;
+//                 border-color: #f2768f;
+//             }
+
+
+//         }
+
+
+//     }
+
+//     .routeActive {
+//         color: blue
+//     }
+
+//     .botao-login {
+//         margin-left: auto;
+//         width: 100px;
+//         height: 50px;
+//         -webkit-transform: skew(-20deg);
+//         -moz-transform: skew(-20deg);
+//         -o-transform: skew(-20deg);
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         text-decoration: none;
+//         color: black;
+//         background: none;
+//         border: 2px solid var(--color-1);
+//         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+//         font-weight: 400;
+//         transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, border 0.3s ease-in-out;
+//         cursor: pointer;
+
+//         &:hover {
+//             background: linear-gradient(to bottom, #7b68ee, #1e90ff);
+//             border-color: var(--color-1);
+//         }
+
+//     }
+
+// }
+
+// @media only screen and (max-width: 750px) {
+
+//     .login-2 {
+//         display: none !important;
+//     }
+
+
+
+//     .navegacao {
+//         height: 70%;
+//     }
+
+//     .rotas {
+//         height: 100%;
+
+//         div{
+//             display: flex;
+//             justify-content: center !important;
+//             align-items: center;
+           
+//         }
+       
+//     }
+
+//     .botao-login{
+//         margin-left: 0px !important;
+//     }
+// }

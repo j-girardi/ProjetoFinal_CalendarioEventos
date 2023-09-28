@@ -14,6 +14,7 @@ const routes: Routes = [
     path: 'usuario',
     loadChildren: () => import('src/app/pages/usuario/usuario.module').then(m => m.UsuarioModule)
   },
+
 ];
 
 @NgModule({

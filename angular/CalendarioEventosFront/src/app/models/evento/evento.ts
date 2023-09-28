@@ -1,3 +1,5 @@
+import { TipoEvento } from "./tipo-evento";
+
 export class Evento {
     id!: number;
     nome!: string;
@@ -8,7 +10,7 @@ export class Evento {
     bairro!: string;
     cidade!: string;
     publico_alvo!: string;
-    tipos_evento!: string;
+    tipos_evento!: TipoEvento[];
     valor_entrada!: number;
     descricao!: string;
     banner!: number;
