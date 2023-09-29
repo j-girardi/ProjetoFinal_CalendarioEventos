@@ -1,30 +1,33 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import * as md5 from 'js-md5'
 import { Evento } from 'src/app/models/evento/evento';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario/usuario';
+import { ResponsePagination } from 'src/app/models/responsePagination/response-pagination';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestsApiService {
+export class RequestsEventosService {
   url = 'http://127.0.0.1:8000'
   accessToken = localStorage.getItem('access_token');
   headers = new HttpHeaders({
     'Authorization': `Bearer ${this.accessToken}`
   }) 
+  responsePagination!: Observable<ResponsePagination>;
+
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
   ) { }
 
-  getEventos(params: HttpParams): Observable<Evento[]> {
-    return this.httpClient.get<Evento[]>(`${this.url}/eventos/eventos/`, {
+  getEventos(params: HttpParams): Observable<ResponsePagination> {
+    return this.httpClient.get<ResponsePagination>(`${this.url}/eventos/eventos/`, {
       params
-    });
+    })
   }
 
   getEvento(id: number): Observable<Evento> {

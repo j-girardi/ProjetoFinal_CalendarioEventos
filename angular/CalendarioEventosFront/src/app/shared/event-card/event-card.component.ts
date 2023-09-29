@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Evento } from 'src/app/models/evento/evento';
+// import { Evento } from 'src/app/models/evento/evento';
 
 
 @Component({

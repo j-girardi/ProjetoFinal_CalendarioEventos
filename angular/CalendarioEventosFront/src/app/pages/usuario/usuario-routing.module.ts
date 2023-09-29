@@ -33,7 +33,8 @@ const routes: Routes = [
             component: EditarEventoComponent
         },
     ]
-}
+  },
+
 ];
 
 @NgModule({

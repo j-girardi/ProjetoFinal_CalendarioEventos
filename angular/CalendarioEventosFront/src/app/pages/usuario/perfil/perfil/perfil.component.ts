@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 
 @Component({
   selector: 'app-perfil',
@@ -13,7 +13,7 @@ export class PerfilComponent implements OnInit {
   token = localStorage.getItem("access_token")
   userId: any
   constructor(
-    private requestService: RequestsApiService,
+    private requestService: RequestsEventosService,
     private router: Router,
     private route: ActivatedRoute
   ) { }

@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { Evento } from 'src/app/models/evento/evento';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { FiltroService } from 'src/app/services/filtro/filtro.service';
 
 
@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit{
   
   
   constructor (
-    private requestService: RequestsApiService,
+    private requestsEventosService: RequestsEventosService,
     private router: Router,
     private filtroService: FiltroService,
   ) {}
@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit{
 
   
   logout() {
-    this.requestService.logout()
+    this.requestsEventosService.logout()
   }
 
   isRotaEventos(): boolean {

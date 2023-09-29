@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileInputValidators, FileInputValue, DropzoneComponent } from '@ngx-dropzone/cdk';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { TipoEvento } from 'src/app/models/evento/tipo-evento';
@@ -13,20 +13,18 @@ import { TipoEvento } from 'src/app/models/evento/tipo-evento';
   styleUrls: ['./novo-evento.component.scss']
 })
 export class NovoEventoComponent implements OnInit{
-  id: any = localStorage.getItem('user_PK');
   FormEvento!: FormGroup;
   selectedFile!: any;
   imagePreviewUrl: any;
   url!: any
+  id: any = localStorage.getItem('user_PK');
   categorias: TipoEvento[] = []
-  // tipos_evento: any[] = []
-  selectedTipos: any[] = []
-  dataMinima = new Date().toISOString().split('T')[0];
+  minDate = new Date().toISOString().split('T')[0];
 
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private requestService: RequestsApiService,
+    private requestService: RequestsEventosService,
     private router: Router
 
   ) { }
@@ -35,7 +33,7 @@ export class NovoEventoComponent implements OnInit{
     this.FormEvento = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(1)]],
       data: ['', Validators.required],
-      tipos_evento: ['', Validators.required],
+      tipos_selecionados: ['', Validators.required],
       descricao: ['', Validators.required],
       valor_entrada: ['', Validators.required],
       cep: ['', Validators.required],
@@ -46,11 +44,9 @@ export class NovoEventoComponent implements OnInit{
       publico_alvo: [''],
     });
 
-
     this.requestService.getCategorias()
       .subscribe(data => {
         this.categorias = data
-        this.selectedTipos = data
         console.log(this.categorias)
       })
 
@@ -72,7 +68,7 @@ export class NovoEventoComponent implements OnInit{
 
       reader.onload = () => {
         this.selectedFile = file;
-        this.imagePreviewUrl = reader.result as string; // Armazene o URL de dados
+        this.imagePreviewUrl = reader.result as string;
       };
     }
   }
@@ -82,7 +78,7 @@ export class NovoEventoComponent implements OnInit{
     this.imagePreviewUrl = null
   }
 
-  criarEvento() {
+  createEvento() {
     if (this.FormEvento.valid && this.selectedFile) {
       const id: any = parseInt(this.id)
       const formData = new FormData();
@@ -101,7 +97,7 @@ export class NovoEventoComponent implements OnInit{
         formData.append('publico_alvo', this.FormEvento.value.publico_alvo);
       }
  
-      formData.append('tipos_evento', JSON.stringify(this.FormEvento.value.tipos_evento.map((it: TipoEvento) => it.id)));
+      formData.append('tipos_evento', JSON.stringify(this.FormEvento.value.tipos_selecionados.map((it: TipoEvento) => it.id)));
       formData.append('valor_entrada', this.FormEvento.value.valor_entrada);
       formData.append('descricao', this.FormEvento.value.descricao);
       formData.append('banner', this.selectedFile, this.selectedFile.name);
@@ -109,7 +105,7 @@ export class NovoEventoComponent implements OnInit{
       this.requestService.postEvento(formData).subscribe(
         (response) => {
           console.log('Evento criado:', response);
-          alert('Evento criado: ' + response)
+          alert('Evento criado: ' + response.nome)
           this.FormEvento.reset();
           this.selectedFile = null; // Limpa a imagem selecionada
           this.router.navigate(['usuario/eventos'])
@@ -127,26 +123,6 @@ export class NovoEventoComponent implements OnInit{
     }
   }
 
-  consoleLog () {
-    console.log({'usuario': parseInt(this.id)});
-    console.log({'nome': this.FormEvento.value.nome});
-    console.log({'data': this.FormEvento.value.data});
-    console.log({'cep': this.FormEvento.value.cep});
-    console.log({'rua': this.FormEvento.value.rua});
-    console.log({'numero': parseInt(this.FormEvento.value.numero)});
-    console.log({'bairro': this.FormEvento.value.bairro});
-    console.log({'cidade': this.FormEvento.value.cidade});
-    console.log({'publico_alvo': this.FormEvento.value.publico_alvo});
-    const tipos_selecionados: any[] = []
-    this.FormEvento.value.tipos_evento.map((val: { id: any; }) => {
-      console.log(val.id)
-      tipos_selecionados.push(val.id)
-      console.log(tipos_selecionados)
-    })
-    console.log('tipos_evento', this.FormEvento.value.tipos_evento);
-    console.log({'valor_entrada': this.FormEvento.value.valor_entrada});
-    console.log({'descricao': this.FormEvento.value.descricao});
-  }
 
   buscarCep(cep: string) {
     this.url = `https://viacep.com.br/ws/${cep}/json/`;

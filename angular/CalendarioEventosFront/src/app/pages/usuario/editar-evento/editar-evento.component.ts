@@ -4,7 +4,7 @@ import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { HttpClient, } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { Evento } from 'src/app/models/evento/evento';
 import { TipoEvento } from 'src/app/models/evento/tipo-evento';
 @Component({
@@ -27,7 +27,7 @@ export class EditarEventoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private requestService: RequestsApiService,
+    private requestService: RequestsEventosService,
     private route: ActivatedRoute,
     private router: Router
   ) { 
@@ -62,9 +62,6 @@ export class EditarEventoComponent implements OnInit {
     this.requestService.getCategorias()
       .subscribe(data => {
         this.categorias = data
-        this.categorias.forEach(categoria => {
-          this.generos.push(categoria.nome)
-        });
       })
 
     this.FormEvento.get('cep')?.valueChanges.pipe(
@@ -77,7 +74,6 @@ export class EditarEventoComponent implements OnInit {
 
   initializeForms() {
     this.FormEvento.patchValue({
-      // tipos_evento: ['', Validators.required],
       nome: this.evento.nome,
       data: this.evento.data,
       cep: this.evento.cep,
@@ -101,23 +97,20 @@ export class EditarEventoComponent implements OnInit {
 
       reader.onload = () => {
         this.selectedImage = file;
-        this.imagePreviewUrl = reader.result as string; // Armazene o URL de dados
+        this.imagePreviewUrl = reader.result as string; 
       };
     }
   }
 
   removeImage() {
-    this.selectedImage = null; // Limpa a variável que guarda a imagem selecionada
-    this.imagePreviewUrl = null
+    this.selectedImage = null;
+    this.imagePreviewUrl = null;
   }
 
-  editarEvento() {
+  editEvento() {
     if (this.FormEvento.valid && this.selectedImage) {
       const formData = new FormData();
-    
       formData.append('tipos_evento', JSON.stringify(this.FormEvento.value.tipos_evento.map((it: TipoEvento) => it.id)));
-      console.log('AQUI', formData.get('tipos_evento'))
-
       formData.append('nome', this.FormEvento.value.nome);
       formData.append('data', this.FormEvento.value.data);
       formData.append('publico_alvo', this.FormEvento.value.publico_alvo);

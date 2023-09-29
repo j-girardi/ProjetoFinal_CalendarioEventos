@@ -14,7 +14,7 @@ class UsuarioWriteSerializer(serializers.ModelSerializer):
             "is_active",
             "user_permissions",
             "groups",
-            "foto_perfil"
+            # "foto_perfil"
         ]
         read_only_fields = [
             "date_joined",
@@ -31,7 +31,7 @@ class UsuarioReadSerializer(serializers.ModelSerializer):
             'password',
             'is_superuser',
             'is_staff',
-            'foto_perfil'
+            # 'foto_perfil'
         ]
     
     def get_groups(self, instance):

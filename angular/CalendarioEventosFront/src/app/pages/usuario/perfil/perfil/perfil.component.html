@@ -1,37 +1,15 @@
-<header class="bgimg w3-display-container" id="home"
-    (click)="abreHome()">
-    <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
-        <span class="w3-tag fs-4">Agenda de eventos da cidade de Pato Branco</span>
-    </div>
-    <div class="w3-display-middle w3-center">
-        <span class="w3-text-white " style="font-size:90px">Agenda<br>Pato Branco</span>
-    </div>
-    <div class="w3-display-bottomright w3-center w3-padding-large ">
-        <span class="w3-text-white fs-4">Área do usuário</span>
-    </div>
-</header>
+<app-menu></app-menu>
 
-<div class="head container-fluid w3-top">
-    <div class="menu w-100 fs-4">
-        <div class="links position-relative">
-            <a class="w3-button w3-round-large inicio-menu " [routerLink]="['/home']" routerLinkActive="router-link-active">Início</a>
-            <a class="w3-button w3-round-large" [routerLink]="['/eventos']" routerLinkActive="router-link-active">Eventos</a>
-        </div>
-        <div class="links direita">
-            <!-- <a class="w3-button w3-round-large" *ngIf="token" (click)="abrePerfil()"
-            [routerLink]="['usuario/perfil/']" routerLinkActive="router-link-active">Perfil</a> -->
-            <a class="w3-button  w3-round-large" (click)="logout()">Logout</a>
-        </div>
-    </div>
+<div class="head ">
 
-    <div class="menu-usuario w-100 fs-4 align-m">
+    <div class="menu-usuario  fs-4 ">
         <div class="links" id="usuario">
-            <a class="w3-button w3-round-large" [ngClass]="{'active': this.botaoAtivo === 'perfil'}"
-                (click)="abrePerfil()" routerLink="/usuario/perfil" routerLinkActive="active">Perfil</a>
-            <a class="w3-button w3-round-large" [ngClass]="{'active': botaoAtivo === 'novo-evento'}"
+            <a class="w3-button w3-round-large" routerLinkActive="router-link-active"
+                (click)="abrePerfil()" [routerLink]="['/usuario/perfil']" routerLinkActive="active">Perfil</a>
+            <a class="w3-button w3-round-large" routerLinkActive="router-link-active" [routerLink]="['/usuario/novo-evento']"
                 (click)="novoEvento()">Novo evento</a>
-            <a class="w3-button w3-round-large" [ngClass]="{'active': botaoAtivo === 'eventos-do-usuario'}"
-                (click)="abreEventos()">Eventos do usuario</a>
+            <a class="w3-button w3-round-large" routerLinkActive="router-link-active" [routerLink]="['/usuario/eventos']"
+                (click)="abreEventos()" >Eventos do usuario</a> 
         </div>
     </div>
 </div>
@@ -40,35 +18,3 @@
     <router-outlet></router-outlet>
 
 </div>
-
-<!-- <div class="page-container">
-    <div class="background">
-    </div>
-    <div class="logo">
-        <a routerLink="/"><img src="../../../../assets/images/pato_borrada.jpg" class="logo" alt="Agenda PB"></a>
-    </div>
-    <div class="profile-container">
-        <div class="texto">
-            <span>BEM VINDO!</span>
-            <h5> Essa é sua pagina de perfil,inclua suas informações, crie eventos e visualize seus eventos ja criados.
-            </h5>
-        </div>
-        <div class="navbar row">
-            <button class="text-button col-lg-2" [ngClass]="{'active': this.botaoAtivo === 'perfil'}"
-                (click)="abrePerfil()">Perfil</button>
-            <button class="text-button col-lg-2" [ngClass]="{'active': botaoAtivo === 'novo-evento'}"
-                (click)="novoEvento()">Novo evento</button>
-            <button class="text-button col-lg-2" [ngClass]="{'active': botaoAtivo === 'eventos-do-usuario'}"
-                (click)="abreEventos()">Eventos do usuario</button>
-            <button class="logout-button col-lg-2" (click)="logout()">Log out</button>
-
-        </div>
-        <div class="main-content">    
-            <router-outlet></router-outlet>  
-        </div>
-        <div class="detail" style="position: relative;">
-            <div class="background2">
-            </div>
-        </div>  
-    </div>
-</div> -->

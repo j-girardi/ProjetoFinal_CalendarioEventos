@@ -2,51 +2,58 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { Evento } from 'src/app/models/evento/evento';
+import { DatePipe, formatDate } from '@angular/common';
 
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  providers: [DatePipe]
 })
 
 export class MainComponent implements OnInit{
   control = new FormControl();
-  // offset = 0;
-  // limit = 8;
-  // eventos: Evento[] = []
-  // eventos$!: Observable<Character[]>;
   eventos!: Observable<Evento[]>;
-  search = new FormControl();
   httpParams = new HttpParams;
-  filtroData = new FormControl();
+  responsePagination!: Observable<any>;
   
   constructor (
-    private requestsApiService: RequestsApiService
-  ) {}
-
-
-  ngOnInit() {
-    this.search.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-    ).subscribe(data => {
-      this.httpParams = this.httpParams.set('search', data)
+    private requestsApiService: RequestsEventosService
+    ) {}
+    
+    
+    ngOnInit() {
       this.buscarEventos()
-    });
+      const hoje = new Date();
 
-    this.filtroData.valueChanges.subscribe(() => {
-      console.log('MUDOU A DATA');  
-      this.buscarEventos();
-      });
+      // Data daqui a 7 dias
+      const dataDaqui7Dias = new Date();
+      dataDaqui7Dias.setDate(dataDaqui7Dias.getDate() + 7);
+      console.log(hoje)
+      console.log(dataDaqui7Dias)
+      const formatoData = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const hojeFormatada = hoje.toLocaleDateString('pt-BR');
+      const dataDaqui7DiasFormatada = dataDaqui7Dias.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-    this.buscarEventos()
+      console.log(hojeFormatada)
+      console.log(dataDaqui7DiasFormatada)
   }
 
   buscarEventos() {
-    this.eventos = this.requestsApiService.getEventos(this.httpParams)
+    this.httpParams = this.httpParams
+    .set('page_size', "5");
+    
+    this.responsePagination = this.requestsApiService.getEventos(this.httpParams)
+    this.eventos = this.responsePagination.pipe(
+      map((responsePagination) => {
+        return responsePagination.results.map(
+          (eventos: Evento[]) => eventos)
+      })
+    )
+    
     this.eventos = this.eventos.pipe(
       map(eventos => {
         return eventos.filter(evento => 
@@ -54,16 +61,24 @@ export class MainComponent implements OnInit{
         )
       })
     );
+    // this.eventos = this.eventos.pipe(
+    //   map(eventos => {
+    //     return eventos.filter(evento => 
+    //       this.filtrarData(evento.data)
+    //     )
+    //   })
+    // );
   }
 
   filtrarData(data: string) {
-    // console.log(new Date(data));
-    if(this.filtroData.value == null || this.filtroData.value == undefined){
-      return true
-    }
-    const dataEvento = new Date(data+'T00:00:00')
-    const filtro0 = new Date(this.filtroData.value[0].getFullYear(), this.filtroData.value[0].getMonth(), this.filtroData.value[0].getDate())
-    const filtro1 = new Date(this.filtroData.value[1].getFullYear(), this.filtroData.value[1].getMonth(), this.filtroData.value[1].getDate()+1)
-    return dataEvento >= filtro0 && dataEvento <= filtro1
+  //   // console.log(new Date(data));
+  //   if(this.filtroData.value == null || this.filtroData.value == undefined){
+  //     return true
+  //   }
+  //   const dataEvento = new Date(data+'T00:00:00')
+  //   const filtro0 = formatDate(new Date(), 'yyyy/MM/dd', 'pt')
+  //   // const filtro1 = new Date(this.filtroData.value[1].getFullYear(), this.filtroData.value[1].getMonth(), this.filtroData.value[1].getDate()+1)
+  //   // return 
+    return true
   }
 }

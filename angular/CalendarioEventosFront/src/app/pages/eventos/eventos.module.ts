@@ -12,6 +12,7 @@ import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from '../main/main.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MainModule } from '../main/main.module';
     BsDatepickerModule.forRoot(),
     FormsModule,
     FontAwesomeModule,
-    MainModule
+    MainModule,
+    MatPaginatorModule
   ]
 })
 export class EventosModule { }

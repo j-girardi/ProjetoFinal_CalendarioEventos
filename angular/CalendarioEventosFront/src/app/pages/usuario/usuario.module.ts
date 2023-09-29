@@ -20,6 +20,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MainModule } from '../main/main.module';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     // DropzoneMaterialModule,
     MatIconModule,
     NgxDropzoneModule,
-    SharedModule
+    SharedModule,
+    MainModule
   ],
   exports: [
     FontAwesomeModule

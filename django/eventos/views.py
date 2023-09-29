@@ -1,17 +1,13 @@
-from datetime import date
+from eventos.filters import EventoFilter, TipoEventoFilter
 from django.shortcuts import render
-from rest_framework import serializers
-from rest_framework import viewsets
+from rest_framework import serializers, viewsets, filters, pagination
+from rest_framework.permissions import SAFE_METHODS
+from django_filters.rest_framework import DjangoFilterBackend
+from datetime import date
+import json
 from usuarios.models import Usuario
 from eventos.models import Evento, TipoEvento
-from rest_framework import filters
-from rest_framework.permissions import SAFE_METHODS
-from rest_framework.parsers import MultiPartParser, FormParser
-import pdb
-import json
 
-# from django.db.models import Q
-from django_filters.rest_framework import DjangoFilterBackend
 
 class OrganizadorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +30,7 @@ class EventoReadSerializer(serializers.ModelSerializer):
         fields = ('id', 'nome', 'data', 'cep', 'rua', 'numero', 'bairro',
                     'cidade', 'tipos_evento', 'publico_alvo', 'valor_entrada', 
                     'descricao', 'data_adicao', 'banner', 'usuario')
-
+        
 
 class TipoEventoWriteSerializer(serializers.ListField):
     def to_internal_value(self, data):
@@ -54,35 +50,50 @@ class EventoWriteSerializer(serializers.ModelSerializer):
                     'descricao', 'data_adicao', 'banner', 'tipos_evento', 'usuario')
         
     def create(self, validated_data):
-        # pdb.set_trace()
         return super().create(validated_data)
-    #     tipos_evento_ids = validated_data.pop('tipos_evento', [])  # Extrai os tipos de evento
-    #     evento = Evento.objects.create(**validated_data)
 
-    #     logger.info('validated_data', validated_data)
-    #     logger.info('tipos_evento_ids', tipos_evento_ids)
-
-    #     # Processa os tipos de evento e associa ao evento criado
-    #     for tipo_evento_id in tipos_evento_ids:
-    #         tipo_evento = TipoEvento.objects.get(id=tipo_evento_id)
-    #         evento.tipos_evento.add(tipo_evento)
-    #     return evento
-
-
+class CustomPaginator(pagination.PageNumberPagination):
+    page_size = 10  # Número de itens por página
+    page_size_query_param = 'page_size'  # Parâmetro opcional para definir o tamanho da página
+    max_page_size = 100  # Tamanho máximo da página
+    last_page_strings = ('last',)  # Texto para o último botão de página
 
 
 class EventoView(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     serializer_class = EventoReadSerializer
     http_method_names = ['get', 'post', 'put', 'delete']
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]  
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter,]  
+    ordering = ['data']
     search_fields = ['nome', 'descricao']
+    pagination_class = CustomPaginator
+    filterset_class = EventoFilter
 
+    filterset_fields = {
+        'tipos_evento__nome': ['exact',' icontains']
+    }
 
     def get_queryset(self):
-        current_date = date.today()
+        
+        queryset = super().get_queryset()
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+
+        if start_date and end_date:
+            queryset = queryset.filter(data__range=[start_date, end_date])
+
+        return queryset
         # Filtrar os eventos com datas maiores ou iguais à data atual
-        return Evento.objects.filter(data__gte=current_date)
+        # current_date = date.today()
+        # return Evento.objects.filter(data__gte=current_date)
+        queryset = super().get_queryset()
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+
+        if start_date and end_date:
+            queryset = queryset.filter(data__range=[start_date, end_date])
+        return queryset
+
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:

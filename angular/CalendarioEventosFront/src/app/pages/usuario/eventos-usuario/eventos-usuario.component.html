@@ -1,8 +1,14 @@
-<main>
+<!-- <div class="main container-eventos">
   <div class="container-fluid row container-eventos w-75">
-    <app-event-card class="col" *ngFor="let evento of this.eventos" [evento]="evento"
-    (click)="editarEvento(evento.id)"></app-event-card>
+    <app-event-card class="col" *ngFor="let evento of (eventos | async)" [evento]="evento"
+    (click)="changePage(evento.id)"></app-event-card>
   </div>
-  <div *ngIf="this.eventos.length === 0" style="height: 50vh;"><h1>Nenhum evento criado</h1></div>
-</main>
-  
+  <div *ngIf="countEventos === 0" style="height: 50vh;"><h1>Nenhum evento criado</h1></div>
+</div> -->
+<div class="container-md container-eventos p-2">
+  <app-event-card class="" *ngFor="let evento of (eventos | async)" [evento]="evento"
+  (click)="editEvento(evento.id)">
+
+  </app-event-card>
+  <div *ngIf="totalItems== 0" style="height: 50vh;"><h1>Nenhum evento criado</h1></div>
+</div>

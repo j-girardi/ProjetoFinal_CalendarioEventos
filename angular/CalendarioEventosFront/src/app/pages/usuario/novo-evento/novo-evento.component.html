@@ -1,5 +1,8 @@
 <div class="container">
     <form [formGroup]="FormEvento">
+        <label for="container" id="titulo">
+            <h1>Formulário de Cadastro de Evento</h1>
+        </label>
         <div class="form-group">
             <label>Nome do Evento</label>
             <input id="nome" type="text" formControlName="nome" class="form-control" [ngClass]="{
@@ -13,7 +16,7 @@
         </div>
         <div class="form-group">
             <label>Data do Evento</label>
-            <input type="date" formControlName="data" class="form-control" [min]="dataMinima" [ngClass]="{
+            <input type="date" formControlName="data" class="form-control" [min]="minDate" [ngClass]="{
                         'is-valid': FormEvento.get('data')?.valid,
                         'is-invalid': FormEvento.get('data')?.invalid && (FormEvento.get('data')?.touched || FormEvento.get('data')?.dirty)
                     }">
@@ -22,26 +25,10 @@
                 <li style="color: red;">Campo obrigatório</li>
             </ul>
         </div>
-        <div class="form-group imagem">
-            <label>Foto do Evento</label>
-            <ngx-dropzone #dropzoneComponent (change)="onFileSelected($event)" *ngIf="!selectedFile">
-                <button mat-button>
-                    <mat-icon>cloud_upload</mat-icon> Arraste e solte ou clique para selecionar uma imagem
-                </button>
-            </ngx-dropzone>
-            <div class="image-preview" *ngIf="imagePreviewUrl">
-                <img [src]="imagePreviewUrl" alt="Foto do Evento" class="preview-image">
-                <button mat-icon-button class="remove-button" *ngIf="imagePreviewUrl" (click)="removeImage()"
-                    #tooltip="matTooltip" matTooltip="Trocar a foto" matTooltipPosition="above">
-                    x
-                </button>
-            </div>
-        </div>
-
 
         <div class="form-group">
             <label>Categorias do Evento</label>
-            <select name="tipos_evento" formControlName="tipos_evento" multiple>
+            <select name="tipos_evento" formControlName="tipos_selecionados" multiple>
                 <option *ngFor="let tipo of categorias" [ngValue]="tipo">{{tipo.nome}}</option>
             </select>
             <ul
@@ -49,12 +36,13 @@
                 <li style="color: red;">Campo obrigatório</li>
             </ul>
         </div>
+
         <div class="form-group">
             <label>Público Alvo</label>
             <input type="text" formControlName="publico_alvo" class="form-control">
         </div>
         <div class="form-group">
-            <label>Descrição do Evento</label>
+            <label>Descrição</label>
             <textarea formControlName="descricao" class="form-control" [ngClass]="{
                                                       'is-valid': FormEvento.get('descricao')?.valid,
                                                       'is-invalid': FormEvento.get('descricao')?.invalid && (FormEvento.get('descricao')?.touched || FormEvento.get('descricao')?.dirty)
@@ -81,7 +69,8 @@
                 [ngClass]="{
                         'is-valid': FormEvento.get('cep')?.valid,
                         'is-invalid': FormEvento.get('cep')?.invalid && (FormEvento.get('cep')?.touched || FormEvento.get('cep')?.dirty)}">
-            <ul *ngIf="FormEvento.get('cep')?.invalid && (FormEvento.get('cep')?.touched || FormEvento.get('cep')?.dirty)">
+            <ul
+                *ngIf="FormEvento.get('cep')?.invalid && (FormEvento.get('cep')?.touched || FormEvento.get('cep')?.dirty)">
                 <li style="color: red;">Campo obrigatório</li>
             </ul>
         </div>
@@ -91,7 +80,8 @@
               'is-valid': FormEvento.get('rua')?.valid,
               'is-invalid': FormEvento.get('rua')?.invalid && (FormEvento.get('rua')?.touched || FormEvento.get('rua')?.dirty)
           }">
-            <ul *ngIf="FormEvento.get('rua')?.invalid && (FormEvento.get('rua')?.touched || FormEvento.get('rua')?.dirty)">
+            <ul
+                *ngIf="FormEvento.get('rua')?.invalid && (FormEvento.get('rua')?.touched || FormEvento.get('rua')?.dirty)">
                 <li style="color: red;">Campo obrigatório</li>
             </ul>
         </div>
@@ -116,9 +106,24 @@
                         'is-invalid': FormEvento.get('cidade')?.invalid && (FormEvento.get('cidade')?.touched || FormEvento.get('cidade')?.dirty)
                     }">
         </div>
-        <div class="d-flex justify-content-between">
-            <button mat-raised-button class="create-button" (click)="criarEvento()">Criar Evento</button>
-            <button mat-raised-button class="create-button" (click)="consoleLog()">ConsoleLog</button>
+
+        <div class="form-group banner">
+            <label>Foto do Evento</label>
+            <ngx-dropzone #dropzoneComponent (change)="onFileSelected($event)" *ngIf="!selectedFile">
+                <button mat-button>
+                    <mat-icon>cloud_upload</mat-icon> Arraste ou clique para selecionar uma imagem
+                </button>
+            </ngx-dropzone>
+            <div class="image-preview" *ngIf="imagePreviewUrl">
+                <img [src]="imagePreviewUrl" alt="Foto do Evento" class="preview-image">
+                <button class="remover-imagem btn-close" *ngIf="imagePreviewUrl" (click)="removeImage()"
+                    #tooltip="matTooltip" matTooltip="Remover imagem" matTooltipPosition="above">
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center ">
+            <button mat-raised-button class="btn btn-success" (click)="createEvento()">Criar Evento</button>
 
         </div>
     </form>

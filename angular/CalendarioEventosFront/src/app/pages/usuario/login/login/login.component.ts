@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private requestService: RequestsApiService,
+    private requestService: RequestsEventosService,
   ) { }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class LoginComponent {
           localStorage.setItem('refresh_token', response.refresh);
           localStorage.setItem('user_PK',response.user.pk)
           this.form.reset()
-          this.router.navigate(['usuario/perfil', response.user.pk])
+          this.router.navigate(['usuario/eventos'])
         }
        else{
             alert('Login inválido. Verifique se todos os campos estão preenchidos corretamente.');

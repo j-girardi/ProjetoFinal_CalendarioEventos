@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileInputValidators, FileInputValue, DropzoneComponent } from '@ngx-dropzone/cdk';
-import { RequestsApiService } from 'src/app/services/eventos-api/requests-api.service';
+import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 
 @Component({
   selector: 'app-detalhe-perfil',
@@ -18,7 +18,7 @@ export class DetalhePerfilComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private requestService: RequestsApiService,
+    private requestService: RequestsEventosService,
     private formBuilder: FormBuilder
 
   ) { }
@@ -35,6 +35,7 @@ export class DetalhePerfilComponent implements OnInit{
           this.usuario = data;
           this.selectedImage = this.usuario.foto_perfil
           this.imagePreviewUrl = this.usuario.foto_perfil
+          console.log(this.imagePreviewUrl)
           this.initializeForms();
         });
     });
@@ -47,7 +48,7 @@ export class DetalhePerfilComponent implements OnInit{
       last_name: [this.usuario.last_name, Validators.required],
       email: [this.usuario.email, Validators.required],
       telefone: [this.usuario.telefone, Validators.required],
-      foto_perfil: []
+      foto_perfil: [this.usuario.foto_perfil]
     })
 
   }
