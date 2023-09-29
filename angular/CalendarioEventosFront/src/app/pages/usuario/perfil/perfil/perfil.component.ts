@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
+import { Router } from '@angular/router';
+import { RequestsUsuariosService } from 'src/app/services/requests-usuarios/requests-usuarios.service';
 
 @Component({
   selector: 'app-perfil',
@@ -13,9 +12,8 @@ export class PerfilComponent implements OnInit {
   token = localStorage.getItem("access_token")
   userId: any
   constructor(
-    private requestService: RequestsEventosService,
+    private requestUsuarioService: RequestsUsuariosService,
     private router: Router,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -24,14 +22,15 @@ export class PerfilComponent implements OnInit {
   }
 
   abrePerfil() {
-    if (this.userId){
+    if (this.userId) {
       this.botaoAtivo = 'perfil';
-      this.router.navigate([`usuario/perfil/${this.userId}`])}
+      this.router.navigate([`usuario/perfil/${this.userId}`])
+    }
     else {
       alert('Erro! Realize o login novamente por favor.')
     }
   }
-  
+
   novoEvento() {
     if (this.userId) {
       this.botaoAtivo = 'novo-evento';
@@ -54,7 +53,7 @@ export class PerfilComponent implements OnInit {
 
 
   logout() {
-    this.requestService.logout()
+    this.requestUsuarioService.logout()
   }
 
   abreHome() {

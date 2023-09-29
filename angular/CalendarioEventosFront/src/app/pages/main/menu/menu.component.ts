@@ -1,11 +1,8 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { Evento } from 'src/app/models/evento/evento';
-import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { FiltroService } from 'src/app/services/filtro/filtro.service';
+import { RequestsUsuariosService } from 'src/app/services/requests-usuarios/requests-usuarios.service';
 
 
 @Component({
@@ -13,17 +10,17 @@ import { FiltroService } from 'src/app/services/filtro/filtro.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit{
+export class MenuComponent implements OnInit {
   token = localStorage.getItem('access_token')
   @Input() search = new FormControl();
   @Input() filtroData = new FormControl();
-  
-  
-  constructor (
-    private requestsEventosService: RequestsEventosService,
+
+
+  constructor(
+    private requestsUsuarioService: RequestsUsuariosService,
     private router: Router,
     private filtroService: FiltroService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
@@ -36,9 +33,9 @@ export class MenuComponent implements OnInit{
     this.filtroService.setPesquisa(pesquisa);
   }
 
-  
+
   logout() {
-    this.requestsEventosService.logout()
+    this.requestsUsuarioService.logout()
   }
 
   isRotaEventos(): boolean {
@@ -48,5 +45,5 @@ export class MenuComponent implements OnInit{
   abreHome() {
     this.router.navigate(['/'])
   }
-  
+
 }

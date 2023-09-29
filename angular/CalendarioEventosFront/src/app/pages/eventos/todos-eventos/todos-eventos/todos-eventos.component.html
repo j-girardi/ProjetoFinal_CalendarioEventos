@@ -7,11 +7,6 @@
     </mat-paginator>
 </div>
 
-<label for="tipoEvento">Filtrar por Tipo de Evento:</label>
-<select id="tipoEvento" multiple [formControl]="controlCategoria">
-  <option *ngFor="let tipo of categorias" [ngValue]="tipo">{{tipo.nome}} </option>
-</select>
-
 <div class="container-md container-eventos p-2">
     <app-event-card *ngFor="let evento of (eventos | async)" [evento]="evento"
         [routerLink]="['/eventos/', evento?.id]">

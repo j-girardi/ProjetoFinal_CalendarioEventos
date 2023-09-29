@@ -1,41 +1,36 @@
 <app-menu></app-menu>
 
-<div class="container body">
-    <div class="wrap-login">
-        <form [formGroup]="form" class="form-box">
-        <span class="logo">
-           
-            <h3 class="card-title text-center">Login</h3>
-        </span>
-            <div class="form-group" style="width: 80%;">
-                <label for="username" class="username-label">E-mail ou Username</label>
-                <input id="username" type="text" class="form-control username-input" formControlName="username"
-                    [ngClass]="{
-                    'is-valid': form.get('username')?.valid,
-                    'is-invalid': form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)
+<div class="container ">
+    <form [formGroup]="formGroup" class="login-card card">
+        <h2 class="text-center">Login</h2>
+        <div class="">
+            <label for="username" class="label">E-mail ou Username</label>
+            <input id="username" type="text" class="form-control input" formControlName="username" [ngClass]="{
+                    'is-valid': formGroup.get('username')?.valid,
+                    'is-invalid': formGroup.get('username')?.invalid && (formGroup.get('username')?.touched || formGroup.get('username')?.dirty)
                 }">
-                <ul *ngIf="form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)">
-                    <li *ngIf="form.get('username')?.hasError('username')">E-mail inválido</li>
-                </ul>
-            </div>
-            <div class="form-group position-relative" style="width: 80%;">
-                <label for="password" class="password-label">Senha</label>
-                <input [type]="fieldTextType ? 'text' : 'password'" class="form-control password-input" id="password"
+            <ul
+                *ngIf="formGroup.get('username')?.invalid && (formGroup.get('username')?.touched || formGroup.get('username')?.dirty)">
+                <li *ngIf="formGroup.get('username')?.hasError('username')">E-mail inválido</li>
+            </ul>
+        </div>
+        <div class="position-relative">
+            <div>
+                <label for="password" class="label">Senha</label>
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control input" id="password"
                     formControlName="password" [ngClass]="{
-                        'is-valid': form.get('password')?.valid,
-                        'is-invalid': form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)
-                    }">
-                <button class="toggle-password" (click)="togglePasswordVisibility()">
-                    <i class="fa" [ngClass]="fieldTextType ? 'fa-eye' : 'fa-eye-slash'"></i>
-                </button>
+                            'is-valid': formGroup.get('password')?.valid,
+                            'is-invalid': formGroup.get('password')?.invalid && (formGroup.get('password')?.touched || formGroup.get('password')?.dirty)
+                        }">
             </div>
-            <div class="container d-flex justify-content-center" style="padding-top: 50px;">
-                <button class="btn btn-primary col-6 mx-auto"
-                    (click)="accountLogin(form.get('username')?.value, form.get('password')?.value)">Login</button>
-            </div>
-            <div class="textoFim">
-                <p>Não tem uma conta? se <a href="/cadastro">inscreva</a> aqui.</p>
-            </div>
-        </form>
-    </div>
+            <button class="eye" (click)="togglePasswordVisibility()">
+                <fa-icon [icon]="['fas', 'eye-slash']" *ngIf="!showPassword"></fa-icon>
+                <fa-icon [icon]="['fas', 'eye']" *ngIf="showPassword"></fa-icon>
+            </button>
+        </div>
+        <div class="d-flex justify-content-center p-5">
+            <button class="btn btn-primary col-6 mx-auto"
+                (click)="login(formGroup.get('username')?.value, formGroup.get('password')?.value)">Login</button>
+        </div>
+    </form>
 </div>

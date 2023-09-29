@@ -1,6 +1,7 @@
 * {
     margin: 0;
 }
+
 .pre-content {
     justify-content: center;
     border-bottom: 1px solid;
@@ -11,6 +12,7 @@
     align-items: center;
     position: relative;
     text-align: center;
+
     h1 {
         font-size: 12px;
         font-weight: 400;
@@ -18,10 +20,11 @@
         font-family: Roboto, sans-serif;
         letter-spacing: .0178571429em;
         font-weight: bold;
-        
+
     }
-    
+
 }
+
 #tit {
     width: 100%;
     position: absolute;
@@ -31,6 +34,7 @@
     letter-spacing: .0178571429em;
     font-weight: bold;
 }
+
 .container-eventos {
     display: flex;
     justify-content: center;

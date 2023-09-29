@@ -30,7 +30,7 @@ export class EditarEventoComponent implements OnInit {
     private requestService: RequestsEventosService,
     private route: ActivatedRoute,
     private router: Router
-  ) { 
+  ) {
     this.FormEvento = formBuilder.group({
       // tipos_evento: ['', Validators.required],
       nome: [this.evento?.nome, Validators.required],
@@ -46,6 +46,7 @@ export class EditarEventoComponent implements OnInit {
       publico_alvo: ['']
     });
   }
+
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -97,7 +98,7 @@ export class EditarEventoComponent implements OnInit {
 
       reader.onload = () => {
         this.selectedImage = file;
-        this.imagePreviewUrl = reader.result as string; 
+        this.imagePreviewUrl = reader.result as string;
       };
     }
   }
@@ -126,11 +127,11 @@ export class EditarEventoComponent implements OnInit {
       };
       this.requestService.putEvento(formData, this.evento.id).subscribe(
         (response) => {
-          console.log('Evento editado com sucesso:', response);
+          alert('Evento editado com sucesso:');
           this.router.navigate(['usuario/eventos'])
         },
         (error) => {
-          console.log('Erro ao editar o evento:', error);
+          alert('Erro ao editar o evento:');
         }
       );
     } else {
@@ -141,10 +142,8 @@ export class EditarEventoComponent implements OnInit {
 
   eventoContemTipoEvento(tipo: any): boolean {
     if (this.evento && this.evento.tipos_evento) {
-      // Verifica se o tipo está presente nos tipos de evento do seu evento
       return this.evento.tipos_evento.some((eventoTipo: { id: any; }) => eventoTipo.id === tipo.id);
     } else {
-      // Lida com o caso em que o evento não está definido ou não tem tipos_evento
       return false;
     }
   }
@@ -153,7 +152,7 @@ export class EditarEventoComponent implements OnInit {
   buscarCep(cep: string) {
     this.url = `https://viacep.com.br/ws/${cep}/json/`;
     return this.httpClient.get<any>(this.url).subscribe(
-      (dados) => {
+      (dados: { logradouro: any; localidade: any; bairro: any; }) => {
         this.FormEvento.patchValue({
           rua: dados.logradouro,
           cidade: dados.localidade,
@@ -164,16 +163,14 @@ export class EditarEventoComponent implements OnInit {
 
   mascaraMoeda(e: any) {
     const input = e.target;
-    let value = input.value.replace(/\D/g, ''); // Remover tudo que não é dígito
+    let value = input.value.replace(/\D/g, '');
     const length = value.length;
     let text: any = [];
 
     if (length > 2) {
-      // Dividir o valor em parte inteira e decimal
       const partInteira = value.substring(0, length - 2);
       const partDecimal = value.substring(length - 2);
 
-      // Construir o texto formatado
       text = partInteira.split('').reverse().map((char: any, index: any) => {
         if (index > 0 && index % 3 === 0) {
           return char + '.';
@@ -183,7 +180,6 @@ export class EditarEventoComponent implements OnInit {
 
       text = text.join('') + '.' + partDecimal;
     } else {
-      // Caso o valor seja menor que 3 dígitos
       text = value;
     }
     this.FormEvento.patchValue({

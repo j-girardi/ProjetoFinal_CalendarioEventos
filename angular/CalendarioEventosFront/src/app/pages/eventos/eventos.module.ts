@@ -8,9 +8,7 @@ import { TodosEventosComponent } from './todos-eventos/todos-eventos/todos-event
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from '../main/main.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 

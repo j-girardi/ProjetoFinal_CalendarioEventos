@@ -1,45 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { RequestsUsuariosService } from '../requests-usuarios/requests-usuarios.service';
 import { Router } from '@angular/router';
-import { RequestsEventosService } from '../eventos-api/requests-eventos-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInjectorService implements HttpInterceptor {
+  url = 'http://127.0.0.1:8000';
+  
   constructor(
-  private router:Router,
-  private requestService: RequestsEventosService
+  private requestUsuarioService: RequestsUsuariosService,
+  private httpClient: HttpClient,
+  private router: Router,
   ) { }
+
+  renovaToken(): Observable<any> {
+    let refreshToken = localStorage.getItem('refresh_token');
+    return this.httpClient.post<any>(`${this.url}/accounts/token/refresh/`, { refresh: refreshToken }).pipe(
+      tap((response: { access: string; }) => {
+        if (response.access) {
+          localStorage.setItem('access_token', response.access);
+        } else {
+          alert('Por favor, faça o login novamente');
+          this.router.navigate(['/login']);
+        }
+      }),
+    );
+  }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
     ): Observable<HttpEvent<any>> {
-    // Verifique o método da solicitação (GET, POST, PUT, DELETE)
     if (request.method === 'POST' || request.method === 'PUT' || request.method === 'DELETE' || request.url.includes('/accounts/registration')) {
-      // Verifique se o token de acesso está presente no armazenamento local
       const accessToken = localStorage.getItem('access_token');
       if (accessToken) {
-        // Clone a solicitação original e inclua o token de acesso no cabeçalho "Authorization"
         const clonedRequest = request.clone({
           setHeaders: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        // Continue com a solicitação clonada
         return next.handle(clonedRequest).pipe(
           catchError((error: HttpErrorResponse) => {
 
             if (error.status === 400) {
-              return throwError('erro 400')
+              return throwError('Erro 400: Bad Request')
             }
             if (error.status === 401) {
-              // Lidar com o erro 401: chame a função renovaToken e tente novamente
-              return this.requestService.renovaToken().pipe(
-                switchMap((response) => {
+              return this.renovaToken().pipe(
+                switchMap((response: { access: string; }) => {
                   let newToken = response.access
                   localStorage.setItem('access_token', response.access);
                   const updatedRequest = request.clone({
@@ -50,13 +62,10 @@ export class TokenInjectorService implements HttpInterceptor {
                   return next.handle(updatedRequest);
                 }),
                 catchError((tokenError) => {
-                  // Se não for possível renovar o token, redirecione para /login
-                  this.requestService.logout()
-                  this.router.navigate(['/usuario/login']);
-                  return throwError('Não autorizado! Realize o login novamente.', tokenError);
+                  this.requestUsuarioService.logout()
+                  return throwError('Realize o login novamente.', tokenError);
                 })
               );
-              
             } 
             else {
               return throwError('Erro: ' + error)
@@ -65,7 +74,6 @@ export class TokenInjectorService implements HttpInterceptor {
         );
       }
     }
-
     return next.handle(request);
   }
 }

@@ -1,61 +1,45 @@
-<div class="card">
-    <form [formGroup]="usuarioForm" *ngIf="this.usuario" class="position-relative">
-        <div class="form-group profile-photo mx-auto">
-            <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onFileSelected($event)"
-                *ngIf="!selectedImage">
-                <ngx-dropzone-label>
-                    <div>
-                        <h2>Adicione a foto de perfil</h2>
-                    </div>
-                </ngx-dropzone-label>
-            </div>
-            <div class="photo" *ngIf="imagePreviewUrl" #tooltip="matTooltip"
-                matTooltip="Clique no icone para trocar de foto" matTooltipPosition="right">
-                <img [src]="this.imagePreviewUrl" class="preview-image">
-                <button class="remove-button" *ngIf="imagePreviewUrl" (click)="removeImage()">
-                    <a class=""><fa-icon [icon]="['fas', 'xmark']"></fa-icon></a>
-                </button>
-            </div>
+<div class="container">
+    <form [formGroup]="usuarioForm" *ngIf="this.usuario" class="form-card">
+        <div class="form-group banner-card card col">
             <ngx-dropzone #dropzoneComponent (change)="onFileSelected($event)" *ngIf="!selectedImage">
-                <button mat-button>
-                    <mat-icon>cloud_upload</mat-icon> Arraste e solte ou clique para selecionar uma imagem
+                <button mat-button class="btn btn-primary">
+                    <mat-icon>cloud_upload</mat-icon> Selecione uma foto de perfil
                 </button>
             </ngx-dropzone>
-            <div class="image-preview" *ngIf="imagePreviewUrl">
-                <img [src]="imagePreviewUrl" alt="Foto do Evento" class="preview-image">
-                <button mat-icon-button class="remove-button" *ngIf="imagePreviewUrl" (click)="removeImage()"
-                    #tooltip="matTooltip" matTooltip="Trocar a foto" matTooltipPosition="above">
-                    x
+            <div class="image-preview" *ngIf="imagePreview">
+                <img [src]="imagePreview" alt="Foto do Evento" class="preview-image">
+                <button class="remover-imagem btn-close" *ngIf="(edit)" (click)="removeImage()" #tooltip="matTooltip"
+                    matTooltip="Remover Imagem" matTooltipPosition="above">
                 </button>
             </div>
         </div>
-        <div class="row">
+        <div class="col">
             <div class="col-lg d-flex flex-column align-items-center form-group">
-                <h2 class="card-title">Detalhes do Usuário</h2>
+                <h2 class="mb-3">Informações do Perfil</h2>
                 <div class="form-group info-section">
                     <label>Username:</label>
-                    <input [readonly]="!editar" type="text" formControlName="username" class="form-control" [ngClass]="{
+                    <input [readonly]="!edit" type="text" formControlName="username" class="form-control" [ngClass]="{
                         'is-valid': usuarioForm.get('username')?.valid,
                         'is-invalid': usuarioForm.get('username')?.invalid && (usuarioForm.get('username')?.touched || usuarioForm.get('username')?.dirty)
                     }">
                 </div>
                 <div class="form-group info-section">
                     <label>Nome:</label>
-                    <input [readonly]="!editar" type="text" formControlName="first_name" class="form-control" [ngClass]="{
+                    <input [readonly]="!edit" type="text" formControlName="first_name" class="form-control" [ngClass]="{
                         'is-valid': usuarioForm.get('first_name')?.valid,
                         'is-invalid': usuarioForm.get('first_name')?.invalid && (usuarioForm.get('first_name')?.touched || usuarioForm.get('first_name')?.dirty)
                     }">
                 </div>
                 <div class="form-group info-section">
                     <label>Sobrenome</label>
-                    <input [readonly]="!editar" type="text" formControlName="last_name" class="form-control" [ngClass]="{
+                    <input [readonly]="!edit" type="text" formControlName="last_name" class="form-control" [ngClass]="{
                         'is-valid': usuarioForm.get('last_name')?.valid,
                         'is-invalid': usuarioForm.get('last_name')?.invalid && (usuarioForm.get('last_name')?.touched || usuarioForm.get('last_name')?.dirty)
                     }" placeholder="Ex: Cervejaria, bar, restaurante.">
                 </div>
                 <div class="form-group info-section">
                     <label>Telefone</label>
-                    <input [readonly]="!editar" type="text" formControlName="telefone" class="form-control"
+                    <input [readonly]="!edit" type="text" formControlName="telefone" class="form-control"
                         placeholder="(xx)999999999" [ngClass]="{
                         'is-valid': usuarioForm.get('telefone')?.valid,
                         'is-invalid': usuarioForm.get('telefone')?.invalid && (usuarioForm.get('telefone')?.touched || usuarioForm.get('telefone')?.dirty)
@@ -63,19 +47,19 @@
                 </div>
                 <div class="form-group info-section">
                     <label>E-mail</label>
-                    <input [readonly]="!editar" type="email" formControlName="email" class="form-control" [ngClass]="{
+                    <input [readonly]="!edit" type="email" formControlName="email" class="form-control" [ngClass]="{
                         'is-valid': usuarioForm.get('email')?.valid,
                         'is-invalid': usuarioForm.get('email')?.invalid && (usuarioForm.get('email')?.touched || usuarioForm.get('email')?.dirty)
                     }">
                 </div>
 
-                <div class="info-section" *ngIf="!editar">
-                    <button class="btn btn-primary  mx-auto btn-lg" (click)="editarInfo()">Editar</button>
+                <div class="info-section" *ngIf="!edit">
+                    <button class="btn btn-primary mx-auto btn-lg" (click)="editInfo()">Editar</button>
                 </div>
-                <div class="info-section" *ngIf="editar">
-                    <button class="btn btn-danger btn-lg" (click)="fecharEditar()"><fa-icon
+                <div class="info-section" *ngIf="edit">
+                    <button class="btn btn-danger btn-lg" (click)="stopEdit()"><fa-icon
                             [icon]="['fas', 'xmark']"></fa-icon></button>
-                    <button class="btn btn-primary btn-lg" (click)="salvarInfo()">Salvar</button>
+                    <button class="btn btn-primary btn-lg" (click)="saveEdit()">Salvar</button>
                 </div>
             </div>
         </div>

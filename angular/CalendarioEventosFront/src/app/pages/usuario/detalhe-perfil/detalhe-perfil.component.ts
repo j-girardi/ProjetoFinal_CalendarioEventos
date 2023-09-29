@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FileInputValidators, FileInputValue, DropzoneComponent } from '@ngx-dropzone/cdk';
-import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
+import { ActivatedRoute } from '@angular/router';
+import { FileInputValidators, FileInputValue } from '@ngx-dropzone/cdk';
+import { RequestsUsuariosService } from 'src/app/services/requests-usuarios/requests-usuarios.service';
 
 @Component({
   selector: 'app-detalhe-perfil',
   templateUrl: './detalhe-perfil.component.html',
   styleUrls: ['./detalhe-perfil.component.scss']
 })
-export class DetalhePerfilComponent implements OnInit{
+export class DetalhePerfilComponent implements OnInit {
   usuario: any;
   usuarioForm!: FormGroup
-  editar: boolean = false
+  edit: boolean = false
   selectedImage!: any;
-  imagePreviewUrl: any;
+  imagePreview: any;
 
   constructor(
     private route: ActivatedRoute,
-    private requestService: RequestsEventosService,
+    private requestsUsuarioService: RequestsUsuariosService,
     private formBuilder: FormBuilder
 
   ) { }
@@ -26,16 +26,15 @@ export class DetalhePerfilComponent implements OnInit{
 
   validators = [FileInputValidators.accept("image/*")];
   profileImg = new FormControl<FileInputValue>(null, this.validators);
-  
+
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params: { [x: string]: any; }) => {
       const usuarioId = params['id'];
-      this.requestService.getUsuario(parseInt(usuarioId!))
-        .subscribe(data => {
+      this.requestsUsuarioService.getUsuario(parseInt(usuarioId!))
+        .subscribe((data: any) => {
           this.usuario = data;
           this.selectedImage = this.usuario.foto_perfil
-          this.imagePreviewUrl = this.usuario.foto_perfil
-          console.log(this.imagePreviewUrl)
+          this.imagePreview = this.usuario.foto_perfil
           this.initializeForms();
         });
     });
@@ -53,15 +52,14 @@ export class DetalhePerfilComponent implements OnInit{
 
   }
 
-  editarInfo() {
-    this.editar = !this.editar
+  editInfo() {
+    this.edit = !this.edit
   }
-  fecharEditar() {
-    this.editar = !this.editar
-    location.reload();
+  stopEdit() {
+    this.edit = !this.edit
   }
 
-  salvarInfo() {
+  saveEdit() {
     if (this.usuarioForm.valid) {
       const formData = new FormData();
       formData.append('username', this.usuarioForm.value.username);
@@ -72,21 +70,21 @@ export class DetalhePerfilComponent implements OnInit{
       if (this.selectedImage?.name) {
         formData.append('foto_perfil', this.selectedImage, this.selectedImage.name)
       };
-      console.log(formData.getAll('username'))
-      console.log(formData.getAll('foto_perfil'))
-      this.requestService.putUsuario(formData, this.usuario.id).subscribe(
+      this.requestsUsuarioService.putUsuario(formData, this.usuario.id).subscribe(
         (response) => {
-          console.log('Informações editadas com sucesso:', response);
-          this.editar = false
+          alert('Informações editadas com sucesso:');
+          this.edit = false
         },
         (error) => {
-          console.log('Erro ao editar o evento:', error);
-          location.reload();        }
-          );
+          alert('Erro ao editar');
+          console.log('Erro ao editar:', error);
+          location.reload();
+        }
+      );
     } else {
       alert('Formulário inválido. Verifique se todos os campos estão preenchidos corretamente.');
       this.usuarioForm.markAllAsTouched(),
-      this.usuarioForm.markAllAsTouched()
+        this.usuarioForm.markAllAsTouched()
     }
   }
 
@@ -99,14 +97,14 @@ export class DetalhePerfilComponent implements OnInit{
 
       reader.onload = () => {
         this.selectedImage = file;
-        this.imagePreviewUrl = reader.result as string; // Armazene o URL de dados
+        this.imagePreview = reader.result as string;
       };
     }
   }
 
   removeImage() {
-    this.usuarioForm.get('foto')?.setValue(null); // Limpa o controle do formulário
-    this.selectedImage = null; // Limpa a variável que guarda a imagem selecionada
-    this.imagePreviewUrl = null
+    this.usuarioForm.get('foto')?.setValue(null);
+    this.selectedImage = null;
+    this.imagePreview = null
   }
 }

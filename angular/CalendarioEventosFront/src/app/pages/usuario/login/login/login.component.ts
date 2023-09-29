@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { RequestsUsuariosService } from 'src/app/services/requests-usuarios/requests-usuarios.service';
 
 
 @Component({
@@ -12,55 +12,53 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  faCoffee = faCoffee;
-
-  form!: FormGroup;
-  fieldTextType: boolean = false;
+  formGroup!: FormGroup;
+  showPassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private requestService: RequestsEventosService,
+    private requestsUsuarioService: RequestsUsuariosService,
   ) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],
     });
   }
 
-  togglePasswordVisibility() {
-    if (this.fieldTextType) { this.fieldTextType = false }
-    else {
-      this.fieldTextType = true
-    }
-  }
-
-  accountLogin(username: string, password: string) {
+  login(username: string, password: string) {
     const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
 
-    this.requestService.login(formData).pipe(
-      catchError((error) => {
-        console.error(error); // Exibe o erro no console (você pode remover isso em produção)
-        alert('Dados invalidos. Verifique se todos os campos estão preenchidos corretamente.');
-        return throwError('Erro ocorreu'); // Retorna um erro para parar a cadeia de observação
+    this.requestsUsuarioService.login(formData).pipe(
+      catchError(() => {
+        alert('Dados invalidos!');
+        return throwError('Erro ocorreu');
       })
     ).subscribe(
-      (response) => {
-        console.log(response)
+      (response: { access: string; refresh: string; user: { pk: string; }; }) => {
         if (response.access && response.refresh) {
           localStorage.setItem('access_token', response.access);
           localStorage.setItem('refresh_token', response.refresh);
-          localStorage.setItem('user_PK',response.user.pk)
-          this.form.reset()
+          localStorage.setItem('user_PK', response.user.pk)
+          this.formGroup.reset()
           this.router.navigate(['usuario/eventos'])
         }
-       else{
-            alert('Login inválido. Verifique se todos os campos estão preenchidos corretamente.');
-            this.form.markAllAsTouched()}
-          })
+        else {
+          alert('Login inválido. Verifique se todos os campos estão preenchidos corretamente.');
+          this.formGroup.markAllAsTouched()
+        }
+      })
+  }
+
+
+  togglePasswordVisibility() {
+    if (this.showPassword) { this.showPassword = false }
+    else {
+      this.showPassword = true
+    }
   }
 }

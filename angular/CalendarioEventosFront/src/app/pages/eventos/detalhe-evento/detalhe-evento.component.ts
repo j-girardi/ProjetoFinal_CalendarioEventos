@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, resolveForwardRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/models/evento/evento';
 import { Usuario } from 'src/app/models/usuario/usuario';
@@ -17,8 +17,6 @@ export class DetalheEventoComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private requestService: RequestsEventosService,
-    // public bsModalRef: BsModalRef,
-    // private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +40,6 @@ export class DetalheEventoComponent implements OnInit{
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${formattedCep}`;
     return googleMapsUrl;
   }
-
 
 }
 

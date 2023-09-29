@@ -2,32 +2,32 @@ header {
     overflow: hidden;
     position: sticky;
 }
+
 header:hover {
     cursor: pointer;
 }
+
 .bgimg {
     background-image: url("../../../../assets/images/pato_aerea.jpg");
     background-position: center;
     background-size: cover;
     background-position: 80%;
     min-height: 60%;
-    
+
     &:hover {
         cursor: pointer;
     }
 
     span {
         background-color: black;
-        background: linear-gradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(37, 29, 18, 0.438)
-            );
-        border-radius: 10px ;
+        background: linear-gradient(rgba(0, 0, 0, 0.5),
+                rgba(37, 29, 18, 0.438));
+        border-radius: 10px;
         color: white;
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
-    
+
 }
 
 
@@ -35,6 +35,7 @@ header:hover {
     position: sticky;
     top: 0;
 }
+
 .menu {
     z-index: 1000;
     background: #fffffffd;
@@ -67,16 +68,18 @@ header:hover {
                 font-weight: bold;
                 background-color: #FDCB58;
             }
-            
+
         }
+
         a:hover {
             cursor: pointer;
         }
     }
 
-    .pesquisa{
+    .pesquisa {
         margin: 0;
-        input{
+
+        input {
             display: block;
             width: 100%;
             padding: 0.375rem 0.75rem;
@@ -91,16 +94,17 @@ header:hover {
             border: var(--bs-border-width) solid var(--bs-border-color);
             border-radius: var(--bs-border-radius);
             font-family: inherit;
-            border-color: #9E7D5D;  
+            border-color: #9E7D5D;
         }
     }
-    
-    #input-me{
+
+    #input-me {
         margin: 0px !important;
         border: var(--bs-border-width) solid #9E7D5D;
     }
 }
+
 .w3-button:hover {
     background-color: #fdcb58af !important;
-    
-  }
+
+}

@@ -17,15 +17,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        // // position: relative;
         h1 {
-            // margin: 0;
-            // margin: 20px;
-            // color: #000000;
+            text-align: center;
             font-size: 32px;
             font-weight: bold;
-            color:#000000; /* Blue color */
-            text-align: center;
+            color:#000000;
             text-transform: uppercase;
             margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -41,7 +37,6 @@
         #nome{
             position: flex;
             flex-wrap: nowrap;
-            // left: 50%;
         }
 
     }
@@ -56,10 +51,6 @@
         img {
             max-width: 100%;
             border-radius: 20px;
-            // height: 100%;
-            // max-width: 100%;
-            // object-fit: fill;
-            // box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
     }
 
@@ -70,7 +61,6 @@
         flex-direction: column;
         padding-left: 90px;
         font-size: larger;
-        // justify-content: start;
         .endereco { 
             align-items: start;
             font-weight: bold;
@@ -85,15 +75,12 @@
             margin-right: 5px;
             font-size: larger
         }
-
     }
 
     .evento-tipo {
         width: 100%;
         align-items: start;
         margin-top: 8px;
-        // padding-bottom: 20px;
-        // padding-top: 8px;
     }
     .event-entry {
         align-items: start;

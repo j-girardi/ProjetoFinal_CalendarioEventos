@@ -26,25 +26,12 @@ export class MainComponent implements OnInit{
     
     
     ngOnInit() {
-      this.buscarEventos()
-      const hoje = new Date();
+      this.filterDate()
+    }
 
-      // Data daqui a 7 dias
-      const dataDaqui7Dias = new Date();
-      dataDaqui7Dias.setDate(dataDaqui7Dias.getDate() + 7);
-      console.log(hoje)
-      console.log(dataDaqui7Dias)
-      const formatoData = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      const hojeFormatada = hoje.toLocaleDateString('pt-BR');
-      const dataDaqui7DiasFormatada = dataDaqui7Dias.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-      console.log(hojeFormatada)
-      console.log(dataDaqui7DiasFormatada)
-  }
-
-  buscarEventos() {
+  requestEventos() {
     this.httpParams = this.httpParams
-    .set('page_size', "5");
+    .set('page_size', "10");
     
     this.responsePagination = this.requestsApiService.getEventos(this.httpParams)
     this.eventos = this.responsePagination.pipe(
@@ -53,32 +40,28 @@ export class MainComponent implements OnInit{
           (eventos: Evento[]) => eventos)
       })
     )
-    
-    this.eventos = this.eventos.pipe(
-      map(eventos => {
-        return eventos.filter(evento => 
-          this.filtrarData(evento.data)
-        )
-      })
-    );
-    // this.eventos = this.eventos.pipe(
-    //   map(eventos => {
-    //     return eventos.filter(evento => 
-    //       this.filtrarData(evento.data)
-    //     )
-    //   })
-    // );
   }
 
-  filtrarData(data: string) {
-  //   // console.log(new Date(data));
-  //   if(this.filtroData.value == null || this.filtroData.value == undefined){
-  //     return true
-  //   }
-  //   const dataEvento = new Date(data+'T00:00:00')
-  //   const filtro0 = formatDate(new Date(), 'yyyy/MM/dd', 'pt')
-  //   // const filtro1 = new Date(this.filtroData.value[1].getFullYear(), this.filtroData.value[1].getMonth(), this.filtroData.value[1].getDate()+1)
-  //   // return 
-    return true
+  filterDate() {
+    function formatDate(date: Date): string {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    
+    const currentDate = new Date();
+    const futureDate = new Date(currentDate);
+    futureDate.setDate(currentDate.getDate() + 7);
+    var startFilterRange = formatDate(currentDate);
+    var endFilterRange = formatDate(futureDate);
+
+    this.httpParams = this.httpParams
+      .set('start_date', startFilterRange)
+      .set('end_date', endFilterRange);
+
+    this.requestEventos()
+
   }
+
 }

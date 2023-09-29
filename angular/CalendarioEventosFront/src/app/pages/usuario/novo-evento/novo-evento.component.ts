@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileInputValidators, FileInputValue, DropzoneComponent } from '@ngx-dropzone/cdk';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestsEventosService } from 'src/app/services/eventos-api/requests-eventos-api.service';
 import { Router } from '@angular/router';
@@ -12,7 +11,7 @@ import { TipoEvento } from 'src/app/models/evento/tipo-evento';
   templateUrl: './novo-evento.component.html',
   styleUrls: ['./novo-evento.component.scss']
 })
-export class NovoEventoComponent implements OnInit{
+export class NovoEventoComponent implements OnInit {
   FormEvento!: FormGroup;
   selectedFile!: any;
   imagePreviewUrl: any;
@@ -24,7 +23,7 @@ export class NovoEventoComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private requestService: RequestsEventosService,
+    private requestsEventosService: RequestsEventosService,
     private router: Router
 
   ) { }
@@ -44,16 +43,15 @@ export class NovoEventoComponent implements OnInit{
       publico_alvo: [''],
     });
 
-    this.requestService.getCategorias()
-      .subscribe(data => {
+    this.requestsEventosService.getCategorias()
+      .subscribe((data: TipoEvento[]) => {
         this.categorias = data
-        console.log(this.categorias)
       })
 
     this.FormEvento.get('cep')?.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-    ).subscribe(val => {
+    ).subscribe((val: string) => {
       this.buscarCep(val)
     })
 
@@ -93,27 +91,23 @@ export class NovoEventoComponent implements OnInit{
       formData.append('cidade', this.FormEvento.value.cidade);
       if (this.FormEvento.value.publico_alvo == '') {
         formData.append('publico_alvo', 'Todos os públicos');
-      } else { 
+      } else {
         formData.append('publico_alvo', this.FormEvento.value.publico_alvo);
       }
- 
+
       formData.append('tipos_evento', JSON.stringify(this.FormEvento.value.tipos_selecionados.map((it: TipoEvento) => it.id)));
       formData.append('valor_entrada', this.FormEvento.value.valor_entrada);
       formData.append('descricao', this.FormEvento.value.descricao);
       formData.append('banner', this.selectedFile, this.selectedFile.name);
 
-      this.requestService.postEvento(formData).subscribe(
+      this.requestsEventosService.postEvento(formData).subscribe(
         (response) => {
-          console.log('Evento criado:', response);
           alert('Evento criado: ' + response.nome)
           this.FormEvento.reset();
           this.selectedFile = null; // Limpa a imagem selecionada
           this.router.navigate(['usuario/eventos'])
         },
-        (error) => {
-          formData.forEach( (val) =>{
-            console.log(val)}
-          )
+        () => {
           alert('Erro ao criar evento, tente novamente');
         }
       );
@@ -127,7 +121,7 @@ export class NovoEventoComponent implements OnInit{
   buscarCep(cep: string) {
     this.url = `https://viacep.com.br/ws/${cep}/json/`;
     return this.httpClient.get<any>(this.url).subscribe(
-      (dados) => {
+      (dados: { logradouro: any; localidade: any; bairro: any; }) => {
         this.FormEvento.patchValue({
           rua: dados.logradouro,
           cidade: dados.localidade,

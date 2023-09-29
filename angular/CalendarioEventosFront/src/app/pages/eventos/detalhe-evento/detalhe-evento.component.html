@@ -5,20 +5,20 @@
 
     <div class="nome-evento fs-6 position-relative row">
       <h1 id="nome" class="col">{{ evento.nome }}</h1>
-      <h1 id="data" class="col col-lg-5" style="min-width: fit-content" >{{evento.data}}</h1>
+      <h1 id="data" class="col col-lg-5" style="min-width: fit-content">{{evento.data}}</h1>
     </div>
-  
+
     <div class="content row">
       <div class="banner col">
         <img src={{evento.banner}} alt="Foto do Evento">
       </div>
-  
+
       <div class="info col-lg-5 fs-5">
-        <div class="endereco mb-2" id="map" >Endereço
+        <div class="endereco mb-2" id="map">Endereço
           <a class="ms-4" style="font-size: 30px;     color: #007849;
           " [href]="getGoogleMapsLink(evento.cep.toString())" target="_blank">
             <fa-icon [icon]="['fas', 'map-location-dot']">GoogleMaps</fa-icon>
-            
+
           </a>
         </div>
         <p> <span>Rua:</span>{{evento.rua}}</p>

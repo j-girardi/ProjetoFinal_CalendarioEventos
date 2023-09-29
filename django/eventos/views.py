@@ -39,7 +39,7 @@ class TipoEventoWriteSerializer(serializers.ListField):
             return None
 
 class EventoWriteSerializer(serializers.ModelSerializer):
-    # banner = serializers.ImageField(max_length=None, use_url=True, required=False)
+    
     tipos_evento = TipoEventoWriteSerializer()
     
 
@@ -53,10 +53,10 @@ class EventoWriteSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 class CustomPaginator(pagination.PageNumberPagination):
-    page_size = 10  # Número de itens por página
-    page_size_query_param = 'page_size'  # Parâmetro opcional para definir o tamanho da página
-    max_page_size = 100  # Tamanho máximo da página
-    last_page_strings = ('last',)  # Texto para o último botão de página
+    page_size = 10 
+    page_size_query_param = 'page_size'  
+    max_page_size = 100 
+    last_page_strings = ('last',)
 
 
 class EventoView(viewsets.ModelViewSet):
@@ -82,16 +82,6 @@ class EventoView(viewsets.ModelViewSet):
         if start_date and end_date:
             queryset = queryset.filter(data__range=[start_date, end_date])
 
-        return queryset
-        # Filtrar os eventos com datas maiores ou iguais à data atual
-        # current_date = date.today()
-        # return Evento.objects.filter(data__gte=current_date)
-        queryset = super().get_queryset()
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
-
-        if start_date and end_date:
-            queryset = queryset.filter(data__range=[start_date, end_date])
         return queryset
 
 

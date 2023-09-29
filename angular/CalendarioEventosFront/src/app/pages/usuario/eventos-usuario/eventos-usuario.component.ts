@@ -10,13 +10,13 @@ import { Observable, map } from 'rxjs';
   templateUrl: './eventos-usuario.component.html',
   styleUrls: ['./eventos-usuario.component.scss']
 })
-export class EventosUsuarioComponent {
+export class EventosUsuarioComponent implements OnInit{
   httpParams = new HttpParams()
   eventos!: Observable<Evento[]>
   countEventos: number = 0
   totalItems: number = 0;
-  pageSize: number = 100; // Tamanho padrão da página
-  currentPage: number = 1; // Página atual
+  pageSize: number = 100; 
+  currentPage: number = 1; 
 
   constructor(
     private requestsEventosService: RequestsEventosService,
@@ -26,34 +26,15 @@ export class EventosUsuarioComponent {
   ngOnInit() {
 
     this.requestEventos()
-    // this.eventos = this.requestsEventosService.getEventos(this.httpParams)
-    // .pipe(
-    //   map((response) => {
-    //     console.log(response);
-    //     this.countEventos = response.count;
-    //     return response.results.map(
-    //       (evento: Evento) => evento)
-    //   })
-    // ).pipe(
-    //   map(eventos => {
-    //     return eventos.filter(evento => 
-    //       this.filtrarUser(evento.usuario)
-    //     )
-    //   })
-    // );
-    //   .subscribe(eventos => {
-    //     this.eventos = eventos.filter(it => this.eventosUser(it.usuario))
-    //  })
   }
 
   requestEventos() {
     this.httpParams = this.httpParams
-      .set('page', this.currentPage.toString()) // Página atual
+      .set('page', this.currentPage.toString()) 
       .set('page_size', this.pageSize.toString())
     this.eventos = this.requestsEventosService.getEventos(this.httpParams)
     .pipe(
       map((response) => {
-        console.log(response);
         this.totalItems = response.count;
         return response.results.map(
           (evento: Evento) => evento)

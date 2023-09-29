@@ -11,8 +11,6 @@ import { NovoEventoComponent } from './novo-evento/novo-evento.component';
 import { EditarEventoComponent } from './editar-evento/editar-evento.component';
 import { EventosUsuarioComponent } from './eventos-usuario/eventos-usuario.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DropzoneMaterialModule } from '@ngx-dropzone/material';
-import { DropzoneCdkModule } from '@ngx-dropzone/cdk';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper'
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -42,8 +40,6 @@ import { MainModule } from '../main/main.module';
     MatTooltipModule,
     MatFormFieldModule,
     MatStepperModule,
-    // DropzoneCdkModule,
-    // DropzoneMaterialModule,
     MatIconModule,
     NgxDropzoneModule,
     SharedModule,

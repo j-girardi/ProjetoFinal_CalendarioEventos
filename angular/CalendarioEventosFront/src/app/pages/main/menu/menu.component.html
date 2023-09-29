@@ -1,6 +1,4 @@
-
-<div class="bgimg w3-display-container " id="home"
-(click)="abreHome()">
+<div class="bgimg w3-display-container " id="home" (click)="abreHome()">
     <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
         <span class=" fs-5">Calendário de eventos da cidade de Pato Branco</span>
     </div>
@@ -13,24 +11,22 @@
 <div class="head container-fluid">
     <div class="menu w-100 fs-4">
         <div class="links ">
-            <a class="w3-button w3-round-large inicio-menu" [routerLink]="['/home']" routerLinkActive="router-link-active">Início</a>
-            <a class="w3-button w3-round-large" [routerLink]="['/eventos']" routerLinkActive="router-link-active">Eventos</a>
+            <a class="w3-button w3-round-large inicio-menu" [routerLink]="['/home']"
+                routerLinkActive="router-link-active">Início</a>
+            <a class="w3-button w3-round-large" [routerLink]="['/eventos']"
+                routerLinkActive="router-link-active">Eventos</a>
         </div>
 
-        <div *ngIf="isRotaEventos()" class="d-flex mx-auto grid gap-5" >
+        <div *ngIf="isRotaEventos()" class="d-flex mx-auto grid gap-5">
             <div class="d-flex justify-content-center align-items-center m-0 ms-5 position-relative">
-                <input type="text" id="input-me"
-                placeholder="Selecionar data"
-                class="form-control"
-                bsDaterangepicker
-                [bsConfig]="{
+                <input type="text" id="input-me" placeholder="Selecionar data" class="form-control" bsDaterangepicker
+                    [bsConfig]="{
                     isAnimated: true,
                     containerClass: 'theme-orange',
                     dateInputFormat: 'DD/MM/YYYY',
                     rangeInputFormat: 'DD/MM/YYYY'
-                }"
-                [formControl]="filtroData">
-        
+                }" [formControl]="filtroData">
+
                 <fa-icon [icon]="['fas', 'calendar-days']" class="ms-1"></fa-icon>
             </div>
             <div class="pesquisa">
@@ -39,9 +35,11 @@
         </div>
 
         <div class="links ms-auto">
-            <a class="w3-button w3-round-large" *ngIf="!token" [routerLink]="['/usuario/login']" routerLinkActive="router-link-active">Login</a>
-            <a class="w3-button w3-round-large" *ngIf="token" [routerLink]="['/usuario/']" routerLinkActive="router-link-active">Perfil</a>
-            <a class="w3-button w3-round-large" *ngIf="token" (click)="logout()" >Logout</a>
+            <a class="w3-button w3-round-large" *ngIf="!token" [routerLink]="['/usuario/login']"
+                routerLinkActive="router-link-active">Login</a>
+            <a class="w3-button w3-round-large" *ngIf="token" [routerLink]="['/usuario/']"
+                routerLinkActive="router-link-active">Perfil</a>
+            <a class="w3-button w3-round-large" *ngIf="token" (click)="logout()">Logout</a>
         </div>
     </div>
 </div>

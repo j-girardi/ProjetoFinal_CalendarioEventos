@@ -6,10 +6,10 @@ from eventos.views import EventoView
 
 
 router = routers.DefaultRouter()
-router.register('eventos', EventoView)  # nome do objeto da view
+router.register('eventos', EventoView)  
 router.register('categorias', TipoEventoView)  
 
 
 urlpatterns = [
-    path('eventos/', include(router.urls)),  # nome do app
+    path('eventos/', include(router.urls)),  
 ]

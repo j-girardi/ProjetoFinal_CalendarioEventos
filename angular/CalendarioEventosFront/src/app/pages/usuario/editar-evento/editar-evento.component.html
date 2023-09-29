@@ -118,8 +118,8 @@
         <div class="form-group banner">
             <label>Foto do Evento</label>
             <ngx-dropzone #dropzoneComponent (change)="onFileSelected($event)" *ngIf="!selectedImage">
-                <button mat-button>
-                    <mat-icon>cloud_upload</mat-icon> Arraste ou clique para selecionar uma imagem
+                <button mat-button class="btn btn-primary">
+                    <mat-icon>cloud_upload</mat-icon> Selecione uma imagem para o banner do evento
                 </button>
             </ngx-dropzone>
             <div class="image-preview" *ngIf="imagePreviewUrl">
